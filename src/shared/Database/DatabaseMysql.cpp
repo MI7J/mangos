@@ -135,12 +135,12 @@ bool MySQLConnection::Initialize(const char* infoString)
 #endif
 
     mMysql = mysql_real_connect(mysqlInit, host.c_str(), user.c_str(),
-                                password.c_str(), database.c_str(), port, unix_socket, 0);
+        password.c_str(), database.c_str(), port, unix_socket, 0);
 
     if (!mMysql)
     {
         sLog.outError("Could not connect to MySQL database at %s: %s\n",
-                      host.c_str(), mysql_error(mysqlInit));
+        host.c_str(), mysql_error(mysqlInit));
         mysql_close(mysqlInit);
         return false;
     }
@@ -170,6 +170,22 @@ bool MySQLConnection::Initialize(const char* infoString)
     // server configs - core sends data in UTF8, so MySQL must expect UTF8 too
     Execute("SET NAMES `utf8`");
     Execute("SET CHARACTER SET `utf8`");
+
+#if MYSQL_VERSION_ID >= 50003
+        my_bool my_true = (my_bool)1;
+        if (mysql_options(mMysql, MYSQL_OPT_RECONNECT, &my_true))
+        {
+            sLog.outDetail("BOOT: MySQL failed to turn on MYSQL_OPT_RECONNECT.");
+        }
+        else
+        {
+            sLog.outDetail("BOOT: MySQL successfully turned on MYSQL_OPT_RECONNECT.");
+        }
+#else
+        sLog.outDetail("BOOT: MySQL: Your client lib version does not support reconnecting after a timeout.");
+        sLog.outDetail("BOOT: MySQL: If this causes you any trouble we advice you to upgrade");
+        sLog.outDetail("BOOT: MySQL: your client libs to at least mySQL 5.0.13 to resolve this problem.");
+#endif
 
     return true;
 }
