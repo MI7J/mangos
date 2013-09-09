@@ -30,3 +30,4 @@ change log [custom patches]:
     cp 27 - Fixed spell 51523 and ranks. Patch provided by laise
     cp 28 - Improvements for pets. Patch provided by Corfen
     cp 29 - Added temporary fix for spell 47540 and ranks
+    cp 30 - Fixed spell 48492 and ranks. Patch provided by Neveragain
