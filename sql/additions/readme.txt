@@ -24,3 +24,4 @@ change log [custom patches]:
     cp 21 - Fixed spell 1850 and ranks work in case non cat form. Patch provided by apendix
     cp 22 - Fixed spell 56815(Rune strike) patch from Warlord123
     cp 23 - Fixed spell 17962 work after switch to 3.3.x client version. Patch provided by Rsa
+    cp 24 - Small fixed spell 17003 and ranks
