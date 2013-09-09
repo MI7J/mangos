@@ -14,3 +14,4 @@ change log [custom patches]:
     cp 11 - Fixed spell 47266 and ranks
     cp 12 - Fixed target mode 104. This fixes spells 120,31661,46968,47897,61391 and their ranks
     cp 13 - Fixed exception for declined name (if this name can't be declined)
+    cp 14 - Fix: not allow to apply buff from 2825 and 32182 if present 57723 or 57724 debuff at target
