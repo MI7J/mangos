@@ -13,3 +13,4 @@ change log [custom patches]:
     cp 10 - Fixed spell 51713 Shadow Dance
     cp 11 - Fixed spell 47266 and ranks
     cp 12 - Fixed target mode 104. This fixes spells 120,31661,46968,47897,61391 and their ranks
+    cp 13 - Fixed exception for declined name (if this name can't be declined)

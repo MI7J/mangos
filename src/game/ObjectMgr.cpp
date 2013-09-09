@@ -7710,6 +7710,12 @@ bool ObjectMgr::IsPlayerMeetToCondition(uint16 conditionId, Player const* pPlaye
 
 bool ObjectMgr::CheckDeclinedNames(std::wstring mainpart, DeclinedName const& names)
 {
+    // get main part of the name
+    std::wstring mainpart = GetMainPartOfName(w_ownname, 0);
+    // prepare flags
+    bool x = true;
+    bool y = true;
+    // check declined names
     for (int i = 0; i < MAX_DECLINED_NAME_CASES; ++i)
     {
         std::wstring wname;
@@ -7717,9 +7723,12 @@ bool ObjectMgr::CheckDeclinedNames(std::wstring mainpart, DeclinedName const& na
             return false;
 
         if (mainpart != GetMainPartOfName(wname, i + 1))
-            return false;
+            x = false;
+
+        if(w_ownname!=wname)
+            y = false;
     }
-    return true;
+    return (x||y);
 }
 
 char const* conditionSourceToStr[] =
