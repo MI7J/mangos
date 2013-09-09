@@ -18,3 +18,4 @@ change log [custom patches]:
     cp 15 - Fix: automatically revive player when he teleported to graveyard/homebind after fall under map
     cp 16 - Fixed spell 31821. Patch provided by laise
     cp 17 - Fixed spell 49194. Patch provided by laise
+    cp 18 - Fixed spell 19505 and ranks. Patch provided by reeshack
