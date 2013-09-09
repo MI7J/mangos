@@ -26,3 +26,4 @@ change log [custom patches]:
     cp 23 - Fixed spell 17962 work after switch to 3.3.x client version. Patch provided by Rsa
     cp 24 - Small fixed spell 17003 and ranks
     cp 25 - Fixed spell 58875. Patch provided by Insider
+    cp 26 - Fixed spell 58677. Patch provided by laise
