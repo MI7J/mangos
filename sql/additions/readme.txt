@@ -7,3 +7,4 @@ change log [custom patches]:
     cp 4 - Implementation of Spell Disabling System
     cp 5 - Increased honor amount from town bosses
     cp 6 - Not apply enchants bonuses if require skill/level. Patch povided by Wowka321
+    cp 7 - Fixed cast interrupt reduction effects
