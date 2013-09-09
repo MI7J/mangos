@@ -27,3 +27,4 @@ change log [custom patches]:
     cp 24 - Small fixed spell 17003 and ranks
     cp 25 - Fixed spell 58875. Patch provided by Insider
     cp 26 - Fixed spell 58677. Patch provided by laise
+    cp 27 - Fixed spell 51523 and ranks. Patch provided by laise
