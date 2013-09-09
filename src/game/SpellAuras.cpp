@@ -2298,6 +2298,12 @@ void Aura::HandleAuraDummy(bool apply, bool Real)
                     case 58589:                                 // Stoneclaw Totem VIII
                         target->CastSpell(target, 58583, true);
                         return;
+                    case 58590:                                 // Stoneclaw Totem IX
+                        target->CastSpell(target, 58584, true);
+                        return;
+                    case 58591:                                 // Stoneclaw Totem X
+                        target->CastSpell(target, 58585, true);
+                        return;
                     case 58600:                             // Restricted Flight Area
                         target->MonsterWhisper(LANG_NO_FLY_ZONE, target, true);
                         return;
@@ -3672,6 +3678,8 @@ void Aura::HandleAuraModShapeshift(bool apply, bool Real)
     // adding/removing linked auras
     // add/remove the shapeshift aura's boosts
     HandleShapeshiftBoosts(apply);
+
+    target->UpdateSpeed(MOVE_RUN, true);
 
     if (target->GetTypeId() == TYPEID_PLAYER)
         ((Player*)target)->InitDataForForm();
