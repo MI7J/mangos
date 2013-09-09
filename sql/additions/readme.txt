@@ -20,3 +20,4 @@ change log [custom patches]:
     cp 17 - Fixed spell 49194. Patch provided by laise
     cp 18 - Fixed spell 19505 and ranks. Patch provided by reeshack
     cp 19 - Fixed spell 49576 (Death Grip)
+    cp 20 - Fixed spell 5730 and ranks. Patch provided by MrLama
