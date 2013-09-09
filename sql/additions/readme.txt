@@ -10,3 +10,4 @@ change log [custom patches]:
     cp 7 - Fixed cast interrupt reduction effects
     cp 8 - Fixed spell 56626 and ranks
     cp 9 - Fixed proc target for spell 38164
+    cp 10 - Fixed spell 51713 Shadow Dance
