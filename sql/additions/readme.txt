@@ -12,3 +12,4 @@ change log [custom patches]:
     cp 9 - Fixed proc target for spell 38164
     cp 10 - Fixed spell 51713 Shadow Dance
     cp 11 - Fixed spell 47266 and ranks
+    cp 12 - Fixed target mode 104. This fixes spells 120,31661,46968,47897,61391 and their ranks
