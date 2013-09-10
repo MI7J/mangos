@@ -37,4 +37,5 @@ change log [custom patches]:
     cp 34 - Fixed spells 51673, 52339, 62598, 62937, 65279, 62311, 64596 by Lutik
     cp 35 - Fixed spell 47541 (Death coil)
     cp 36 - Fixed combat limitation for spell 781 by Ceris
-    cp 37 - Fixed spells 64382 working vs immunity effects. Patch provided by Insider
+    cp 37 - Fixed spell 64382 working vs immunity effects. Patch provided by Insider
+    cp 38 - Fix: not allow to stack buffs from spells 1459,23028,61024 and ranks. Patch provided by Insider
