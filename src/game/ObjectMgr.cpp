@@ -7708,7 +7708,7 @@ bool ObjectMgr::IsPlayerMeetToCondition(uint16 conditionId, Player const* pPlaye
     return false;
 }
 
-bool ObjectMgr::CheckDeclinedNames(std::wstring mainpart, DeclinedName const& names)
+bool ObjectMgr::CheckDeclinedNames(std::wstring w_ownname, DeclinedName const& names)
 {
     // get main part of the name
     std::wstring mainpart = GetMainPartOfName(w_ownname, 0);

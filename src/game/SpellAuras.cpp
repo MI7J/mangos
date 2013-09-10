@@ -5056,6 +5056,8 @@ void Aura::HandleAuraModIncreaseSpeed(bool apply, bool Real)
     if (!Real)
         return;
 
+    Unit* target = GetTarget();
+
     GetTarget()->UpdateSpeed(MOVE_RUN, true);
 
     if (apply && GetSpellProto()->Id == 58875)

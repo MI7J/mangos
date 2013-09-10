@@ -1376,7 +1376,7 @@ void World::SetInitialWorldSettings()
             local.tm_year + 1900, local.tm_mon + 1, local.tm_mday, local.tm_hour, local.tm_min, local.tm_sec);
 
     LoginDatabase.PExecute("INSERT INTO uptime (realmid, starttime, startstring, uptime) VALUES('%u', " UI64FMTD ", '%s', 0)",
-                           getConfig(CONFIG_UINT32_REALMID), uint64(m_startTime), isoDate);
+                           realmID, uint64(m_startTime), isoDate);
 
     static uint32 abtimer = 0;
     abtimer = sConfig.GetIntDefault("AutoBroadcast.Timer", 60000);

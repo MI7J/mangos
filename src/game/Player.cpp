@@ -22568,7 +22568,7 @@ void Player::UnsummonPetTemporaryIfAny()
 
     if (((Player*)this)->InArena())
     {
-        RemovePet(pet, PET_SAVE_NOT_IN_SLOT); // remove pet while is player teleported to arena
+        RemovePet(PET_SAVE_NOT_IN_SLOT); // remove pet while is player teleported to arena
         return;
     }
 
