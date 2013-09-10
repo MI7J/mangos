@@ -39,3 +39,4 @@ change log [custom patches]:
     cp 36 - Fixed combat limitation for spell 781 by Ceris
     cp 37 - Fixed spell 64382 working vs immunity effects. Patch provided by Insider
     cp 38 - Fix: not allow to stack buffs from spells 1459,23028,61024 and ranks. Patch provided by Insider
+    cp 39 - Convert player body to ghost, except when a player ghoul

@@ -4414,7 +4414,8 @@ void Player::BuildPlayerRepop()
     GetMap()->Add(corpse);
 
     // convert player body to ghost
-    SetHealth(1);
+    if (getDeathState() != GHOULED)
+        SetHealth(1);
 
     SetWaterWalk(true);
     if (!GetSession()->isLogingOut())
