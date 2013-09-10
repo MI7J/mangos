@@ -333,6 +333,17 @@ void Spell::EffectSchoolDMG(SpellEffectIndex effect_idx)
                         damage /= count;                    // divide to all targets
                         break;
                     }
+                    // AoE spells, which damage is reduced with distance from the initial hit point
+                    case 51673:                             // Rocket Blast
+                    case 52339:                             // Hurl Boulder
+                    case 62598: case 62937:                 // Detonate
+                    case 62311: case 64596:                 // Cosmic Smash
+                    case 65279:                             // Lightning Nova
+                    {
+                        float distance = unitTarget->GetDistance(m_targets.getDestination());
+                        damage *= exp(-distance/15.0f);
+                        break;
+                    }
                     // percent from health with min
                     case 25599:                             // Thundercrash
                     {
