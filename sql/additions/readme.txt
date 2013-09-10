@@ -41,3 +41,4 @@ change log [custom patches]:
     cp 38 - Fix: not allow to stack buffs from spells 1459,23028,61024 and ranks. Patch provided by Insider
     cp 39 - Convert player body to ghost, except when a player ghoul
     cp 40 - Added checks for SpellHitResult
+    cp 41 - Fixed spell 49018 and ranks
