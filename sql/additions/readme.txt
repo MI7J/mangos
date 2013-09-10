@@ -42,3 +42,4 @@ change log [custom patches]:
     cp 39 - Convert player body to ghost, except when a player ghoul
     cp 40 - Added checks for SpellHitResult
     cp 41 - Fixed spell 49018 and ranks
+    cp 42 - Fixed spell 56249. Patch provided by laise
