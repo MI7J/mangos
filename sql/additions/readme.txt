@@ -44,3 +44,4 @@ change log [custom patches]:
     cp 41 - Fixed spell 49018 and ranks
     cp 42 - Fixed spell 56249. Patch provided by laise
     cp 43 - Small cleanup in Spell::prepareDataForTriggerSystem(). Patch provided by pasdVn
+    cp 44 - Fixed spell 56342 and ranks. Patch provided by pasdVn

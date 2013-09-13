@@ -3707,7 +3707,13 @@ SpellAuraProcResult Unit::HandleProcTriggerSpellAuraProc(Unit* pVictim, uint32 d
         case 56453:
         {
             // Proc only from trap activation (from periodic proc another aura of this spell)
-            if (!(procFlags & PROC_FLAG_ON_TRAP_ACTIVATION) || !roll_chance_i(triggerAmount))
+            if (!(procFlags & PROC_FLAG_ON_TRAP_ACTIVATION) || !procSpell ||
+                !(procSpell->SchoolMask & (SPELL_SCHOOL_MASK_FROST | SPELL_SCHOOL_MASK_NATURE)) || !roll_chance_i(triggerAmount))
+            {
+                return SPELL_AURA_PROC_FAILED;
+            }
+            // don't proc Explosive Trap on triggering (only on periodic, in other aura proc)
+            else if (procSpell->SpellFamilyFlags & 0x00000004)
                 return SPELL_AURA_PROC_FAILED;
             break;
         }
@@ -4036,6 +4042,23 @@ SpellAuraProcResult Unit::HandleAddPctModifierAuraProc(Unit* /*pVictim*/, uint32
             }
             break;
         }
+        case SPELLFAMILY_HUNTER:
+        {
+            // Lock and load triggered
+            if (spellInfo->Id == 56453)
+            {
+                // Proc only on first effect
+                if (triggeredByAura->GetEffIndex() != EFFECT_INDEX_0)
+                    return SPELL_AURA_PROC_CANT_TRIGGER;
+
+                // Remove only single aura from stack
+                if (triggeredByAura->GetStackAmount() > 1 && !triggeredByAura->GetHolder()->ModStackAmount(-1))
+                    return SPELL_AURA_PROC_CANT_TRIGGER;
+            }
+            break;
+        }
+        default:
+            break;
     }
     return SPELL_AURA_PROC_OK;
 }
