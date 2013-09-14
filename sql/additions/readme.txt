@@ -46,3 +46,4 @@ change log [custom patches]:
     cp 43 - Small cleanup in Spell::prepareDataForTriggerSystem(). Patch provided by pasdVn
     cp 44 - Fixed spell 56342 and ranks. Patch provided by pasdVn
     cp 45 - Fixed a bug when some auras were not removed by shapeshift. Patch provided by MrLama
+    cp 46 - Add function SummonGameobject for gameobject summon. Patch provided by zergtmn
