@@ -47,3 +47,4 @@ change log [custom patches]:
     cp 44 - Fixed spell 56342 and ranks. Patch provided by pasdVn
     cp 45 - Fixed a bug when some auras were not removed by shapeshift. Patch provided by MrLama
     cp 46 - Add function SummonGameobject for gameobject summon. Patch provided by zergtmn
+    cp 47 - Fixed crash with Unit::GetPet. Patch provided by NetSky, modified rsa
