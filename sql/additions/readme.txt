@@ -45,3 +45,4 @@ change log [custom patches]:
     cp 42 - Fixed spell 56249. Patch provided by laise
     cp 43 - Small cleanup in Spell::prepareDataForTriggerSystem(). Patch provided by pasdVn
     cp 44 - Fixed spell 56342 and ranks. Patch provided by pasdVn
+    cp 45 - Fixed a bug when some auras were not removed by shapeshift. Patch provided by MrLama
