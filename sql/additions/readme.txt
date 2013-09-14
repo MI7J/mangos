@@ -50,3 +50,4 @@ change log [custom patches]:
     cp 47 - Fixed crash with Unit::GetPet. Patch provided by NetSky, modified rsa
     cp 48 - Added temporary fix for spell 8178
     cp 49 - Fix: prevent replacing spell 588 and ranks buff by 26573 and ranks
+    cp 50 - Fixed exploit with cooldown for spell 8177 at using spells 66842,66843,66844. Patch provided by Insider
