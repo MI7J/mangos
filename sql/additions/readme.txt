@@ -48,3 +48,4 @@ change log [custom patches]:
     cp 45 - Fixed a bug when some auras were not removed by shapeshift. Patch provided by MrLama
     cp 46 - Add function SummonGameobject for gameobject summon. Patch provided by zergtmn
     cp 47 - Fixed crash with Unit::GetPet. Patch provided by NetSky, modified rsa
+    cp 48 - Added temporary fix for spell 8178
