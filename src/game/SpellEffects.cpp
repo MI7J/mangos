@@ -340,7 +340,7 @@ void Spell::EffectSchoolDMG(SpellEffectIndex effect_idx)
                     case 62311: case 64596:                 // Cosmic Smash
                     case 65279:                             // Lightning Nova
                     {
-                        float distance = unitTarget->GetDistance(m_targets.getDestination());
+                        float distance = unitTarget->GetDistance2d(m_targets.m_destX, m_targets.m_destY); 
                         damage *= exp(-distance/15.0f);
                         break;
                     }
@@ -9907,7 +9907,6 @@ void Spell::EffectSummonAllTotems(SpellEffectIndex eff_idx)
                 {
                     if (((Player*)m_caster)->HasSpellCooldown(spell_id))
                         m_caster->CastSpell(unitTarget, spell_id, true);
-                    }
                 }
             }
         }
