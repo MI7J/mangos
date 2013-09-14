@@ -49,3 +49,4 @@ change log [custom patches]:
     cp 46 - Add function SummonGameobject for gameobject summon. Patch provided by zergtmn
     cp 47 - Fixed crash with Unit::GetPet. Patch provided by NetSky, modified rsa
     cp 48 - Added temporary fix for spell 8178
+    cp 49 - Fix: prevent replacing spell 588 and ranks buff by 26573 and ranks
