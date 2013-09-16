@@ -52,3 +52,4 @@ change log [custom patches]:
     cp 49 - Fix: prevent replacing spell 588 and ranks buff by 26573 and ranks
     cp 50 - Fixed exploit with cooldown for spell 8177 at using spells 66842,66843,66844. Patch provided by Insider
     cp 51 - Attempt to fix some arena-related exploits. Patch provided by zergtmn
+    cp 52 - Knockbak fix from PSZ
