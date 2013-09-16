@@ -25,6 +25,11 @@ UPDATE creature_template SET spell1 = 58590 WHERE entry = 31121;
 UPDATE creature_template SET spell1 = 58591 WHERE entry = 31122;
 
 -- spell_proc_event
+-- Fingers of Frost talent auras proc
+DELETE FROM spell_proc_event WHERE entry IN (44543, 44545);
+INSERT INTO spell_proc_event VALUES
+(44543, 0, 0x03, 0x021002A0, 0x021002A0, 0x021002A0, 0x1000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(44545, 0, 0x03, 0x021002A0, 0x021002A0, 0x021002A0, 0x1000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 -- (48492) King of the Jungle
 DELETE FROM spell_proc_event WHERE entry IN (48492, 48494, 48495);
 INSERT INTO spell_proc_event VALUES (48492, 0x00, 0x07, 524288, 524288, 524288, 0x00000000, 0x00000000, 0x00000000, 2048, 2048, 2048, 16384, 0x00000000, 0, 0, 0);
