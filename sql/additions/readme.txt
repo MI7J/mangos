@@ -59,3 +59,4 @@ change log [custom patches]:
     cp 56 - Fixed stacking of spells 52437,60503. Patch provided by Insider
     cp 57 - Fixed spell 48094. Patch provided by PSZ
     cp 58 - Fixed stacking of different effects for spell 30299 and ranks. Patch provided by Corfen
+    cp 59 - Fixed invisibility for Arena Preparation. Patch provided by Insider
