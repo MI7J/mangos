@@ -64,3 +64,4 @@ change log [custom patches]:
     cp 61 - Fixed spell 67356. Patch provided by laise
     cp 62 - Fixed crash with Unit::GetCombatDistance. Patch provided by zergtmn
     cp 63 - Fixed spell 51692 and ranks. Patch provided by Tequila
+    cp 64 - Fixed replacing effect of spell 61840 by 20066. Patch provided by MrLama
