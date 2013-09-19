@@ -57,3 +57,4 @@ change log [custom patches]:
     cp 54 - Added proc for spells 44543, 44545 to spell_proc_event
     cp 55 - Fixed stacking of spells 56648,57055. Patch provided by PSZ
     cp 56 - Fixed stacking of spells 52437,60503. Patch provided by Insider
+    cp 57 - Fixed spell 48094. Patch provided by PSZ
