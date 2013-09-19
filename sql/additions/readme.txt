@@ -55,3 +55,4 @@ change log [custom patches]:
     cp 52 - Knockbak fix from PSZ
     cp 53 - Fixed stacking of spells 65684, 65686. Patch provided by Insider
     cp 54 - Added proc for spells 44543, 44545 to spell_proc_event
+    cp 55 - Fixed stacking of spells 56648,57055. Patch provided by PSZ
