@@ -25,7 +25,7 @@ UPDATE creature_template SET spell1 = 58590 WHERE entry = 31121;
 UPDATE creature_template SET spell1 = 58591 WHERE entry = 31122;
 
 -- spell_bonus_data
-DELETE FROM `spell_bonus_data` WHERE `id` = 54158;
+DELETE FROM spell_bonus_data WHERE entry = 54158;
 
 -- spell_proc_event
 -- (12317) Enrage
