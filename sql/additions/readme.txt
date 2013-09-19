@@ -62,3 +62,4 @@ change log [custom patches]:
     cp 59 - Fixed invisibility for Arena Preparation. Patch provided by Insider
     cp 60 - Removed outdated data from DB. This fixes spell 12317 and ranks. Patch provided by laise
     cp 61 - Fixed spell 67356. Patch provided by laise
+    cp 62 -  Fixed crash with Unit::GetCombatDistance. Patch provided by zergtmn
