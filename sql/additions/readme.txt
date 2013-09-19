@@ -67,3 +67,4 @@ change log [custom patches]:
     cp 64 - Fixed replacing effect of spell 61840 by 20066. Patch provided by MrLama
     cp 65 - Fixed spell damage bonus for spell 54158. Patch provided by MrLama
     cp 66 - Fixed haste bonus for spell 15473. Patch provided by Tasssadar
+    cp 67 - Implemented random battlegound system and other battleground fixes. Patch provided by GriffonHeart
