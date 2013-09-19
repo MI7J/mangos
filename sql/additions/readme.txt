@@ -66,3 +66,4 @@ change log [custom patches]:
     cp 63 - Fixed spell 51692 and ranks. Patch provided by Tequila
     cp 64 - Fixed replacing effect of spell 61840 by 20066. Patch provided by MrLama
     cp 65 - Fixed spell damage bonus for spell 54158. Patch provided by MrLama
+    cp 66 - Fixed haste bonus for spell 15473. Patch provided by Tasssadar
