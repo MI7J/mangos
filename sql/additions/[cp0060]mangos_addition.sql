@@ -25,6 +25,8 @@ UPDATE creature_template SET spell1 = 58590 WHERE entry = 31121;
 UPDATE creature_template SET spell1 = 58591 WHERE entry = 31122;
 
 -- spell_proc_event
+-- (12317) Enrage
+DELETE FROM spell_proc_event WHERE entry = 12317;
 -- Fingers of Frost talent auras proc
 DELETE FROM spell_proc_event WHERE entry IN (44543, 44545);
 INSERT INTO spell_proc_event VALUES

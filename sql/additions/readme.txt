@@ -60,3 +60,4 @@ change log [custom patches]:
     cp 57 - Fixed spell 48094. Patch provided by PSZ
     cp 58 - Fixed stacking of different effects for spell 30299 and ranks. Patch provided by Corfen
     cp 59 - Fixed invisibility for Arena Preparation. Patch provided by Insider
+    cp 60 - Removed outdated data from DB. This fixes spell 12317 and ranks. Patch provided by laise
