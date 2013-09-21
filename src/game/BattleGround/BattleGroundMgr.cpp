@@ -1594,7 +1594,7 @@ BattleGround* BattleGroundMgr::CreateNewBattleGround(BattleGroundTypeId bgTypeId
     bg->SetArenaType(arenaType);
     bg->SetRated(isRated);
     bg->SetRandom(isRandom);
-    bg->SetTypeID(isRandom ? BATTLEGROUND_RB : isArena ? BATTLEGROUND_AA : bgTypeId);
+    bg->SetTypeID(isRandom ? BATTLEGROUND_RB : bgTypeId);
     bg->SetRandomTypeID(bgTypeId);
 
     return bg;
