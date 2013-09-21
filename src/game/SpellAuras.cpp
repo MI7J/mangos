@@ -8263,25 +8263,37 @@ void Aura::PeriodicDummyTick()
                     }
                     return;
                 }
-                case 66118:                                 // Leeching Swarm
-                case 67630:                                 // Leeching Swarm
-                case 68646:                                 // Leeching Swarm
-                case 68647:                                 // Leeching Swarm
+                case 66118:                                 // Leeching Swarm 10 normal
+                case 68646:                                 // Leeching Swarm 10 heroic
                 {
-                    Unit* caster = GetCaster();
-                    if (!caster)
-                        return;
-
                     int32 lifeLeeched = int32(target->GetHealth() * m_modifier.m_amount * 0.01f);
 
                     if (lifeLeeched < 250)
                         lifeLeeched = 250;
 
+                    int32 Leeched = lifeLeeched * 68 / 100;
                     // Leeching swarm damage
-                    caster->CastCustomSpell(target, 66240, &lifeLeeched, NULL, NULL, true, NULL, this);
-
+                    target->CastCustomSpell(target, 66240, &lifeLeeched, NULL, NULL, true, NULL, this);
                     // Leeching swarm heal
-                    target->CastCustomSpell(caster, 66125, &lifeLeeched, NULL, NULL, true, NULL, this);
+                    if (Unit* caster = GetCaster())
+                        target->CastCustomSpell(caster, 66125, &healLeeched, NULL, NULL, true, NULL, this);
+
+                    return;
+                }
+                case 67630:                                 // Leeching Swarm 25 normal
+                case 68647:                                 // Leeching Swarm 25 heroic
+                {
+                    int32 lifeLeeched = int32(target->GetHealth() * m_modifier.m_amount * 0.01f);
+
+                    if (lifeLeeched < 250)
+                        lifeLeeched = 250;
+
+                    int32 Leeched = lifeLeeched * 155 / 100;
+                    // Leeching swarm damage
+                    target->CastCustomSpell(target, 66240, &lifeLeeched, NULL, NULL, true, NULL, this);
+                    // Leeching swarm heal
+                    if (Unit* caster = GetCaster())
+                        target->CastCustomSpell(caster, 66125, &healLeeched, NULL, NULL, true, NULL, this);
 
                     return;
                 }
