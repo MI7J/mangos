@@ -8271,7 +8271,7 @@ void Aura::PeriodicDummyTick()
                     if (lifeLeeched < 250)
                         lifeLeeched = 250;
 
-                    int32 Leeched = lifeLeeched * 68 / 100;
+                    int32 healLeeched = lifeLeeched * 68 / 100;
                     // Leeching swarm damage
                     target->CastCustomSpell(target, 66240, &lifeLeeched, NULL, NULL, true, NULL, this);
                     // Leeching swarm heal
@@ -8288,7 +8288,7 @@ void Aura::PeriodicDummyTick()
                     if (lifeLeeched < 250)
                         lifeLeeched = 250;
 
-                    int32 Leeched = lifeLeeched * 155 / 100;
+                    int32 healLeeched = lifeLeeched * 155 / 100;
                     // Leeching swarm damage
                     target->CastCustomSpell(target, 66240, &lifeLeeched, NULL, NULL, true, NULL, this);
                     // Leeching swarm heal
