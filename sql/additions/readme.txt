@@ -69,3 +69,4 @@ change log [custom patches]:
     cp 66 - Fixed haste bonus for spell 15473. Patch provided by Tasssadar
     cp 67 - Implemented random battlegound system and other battleground fixes. Patch provided by GriffonHeart
     cp 68 - Fixed spell 66118. Patch provided by MaS0n and Insider
+    cp 69 - Implemented SPELL_AURA_284. Patch provided by zergtmn

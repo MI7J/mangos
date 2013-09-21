@@ -341,7 +341,7 @@ pAuraHandler AuraHandler[TOTAL_AURAS] =
     &Aura::HandleNoImmediateEffect,                         //281 SPELL_AURA_MOD_HONOR_GAIN             implemented in Player::RewardHonor
     &Aura::HandleAuraIncreaseBaseHealthPercent,             //282 SPELL_AURA_INCREASE_BASE_HEALTH_PERCENT
     &Aura::HandleNoImmediateEffect,                         //283 SPELL_AURA_MOD_HEALING_RECEIVED       implemented in Unit::SpellHealingBonusTaken
-    &Aura::HandleNULL,                                      //284 51 spells
+    &Aura::HandleAuraLinked,                                //284 SPELL_AURA_LINKED
     &Aura::HandleAuraModAttackPowerOfArmor,                 //285 SPELL_AURA_MOD_ATTACK_POWER_OF_ARMOR  implemented in Player::UpdateAttackPowerAndDamage
     &Aura::HandleNoImmediateEffect,                         //286 SPELL_AURA_ABILITY_PERIODIC_CRIT      implemented in Aura::IsCritFromAbilityAura called from Aura::PeriodicTick
     &Aura::HandleNoImmediateEffect,                         //287 SPELL_AURA_DEFLECT_SPELLS             implemented in Unit::MagicSpellHitResult and Unit::MeleeSpellHitResult
@@ -8630,6 +8630,64 @@ void Aura::HandleAuraControlVehicle(bool apply, bool Real)
     }
     else
         target->GetVehicleInfo()->UnBoard(caster, m_removeMode == AURA_REMOVE_BY_TRACKING);
+}
+
+void Aura::HandleAuraLinked(bool apply, bool Real)
+{
+    if (!Real)
+        return;
+
+    uint32 linkedSpell = GetSpellProto()->EffectTriggerSpell[m_effIndex];
+    SpellEntry const *spellInfo = sSpellStore.LookupEntry(linkedSpell);
+    Unit* pTarget = GetTarget();
+    Unit* pCaster = GetCaster();
+
+    if (!spellInfo)
+    {
+        sLog.outError("HandleAuraLinked for spell %u effect %u: triggering unknown spell %u", GetSpellProto()->Id, m_effIndex, linkedSpell);
+        return;
+    }
+
+    if (apply)
+    {
+        if (pCaster && pCaster->GetTypeId() == TYPEID_PLAYER &&
+            pTarget->IsVehicle() &&
+            spellInfo->HasAttribute(SPELL_ATTR_EX_HIDDEN_AURA) &&
+            spellInfo->HasAttribute(SPELL_ATTR_HIDE_IN_COMBAT_LOG))
+        {
+            float bonus = ((float)((Player*)pCaster)->GetEquipGearScore(false, false) - (float)sWorld.getConfig(CONFIG_UINT32_GEAR_CALC_BASE))
+                                 / (float)sWorld.getConfig(CONFIG_UINT32_GEAR_CALC_BASE);
+
+            float curHealthRatio = pTarget->GetHealthPercent() / 100.0f;
+
+            int32 bp0 = int32(((float)spellInfo->EffectBasePoints[EFFECT_INDEX_0] + bonus) * 100);
+            int32 bp1 = int32(((float)spellInfo->EffectBasePoints[EFFECT_INDEX_1] + bonus) * 100);
+            int32 bp2 = int32(((float)spellInfo->EffectBasePoints[EFFECT_INDEX_2] + bonus) * 100);
+
+            // don't lower stats of vehicle, if GS player below then calculation base
+            if (bp0 < 0)
+                bp0 = 0;
+            if (bp1 < 0)
+                bp1 = 0;
+            if (bp2 < 0)
+                bp2 = 0;
+
+            pTarget->CastCustomSpell(pTarget, spellInfo, &bp0, &bp1, &bp2, true, NULL, this, GetCasterGuid(), GetSpellProto());
+            pTarget->SetHealth(uint32((float)pTarget->GetMaxHealth() * curHealthRatio));
+        }
+        // Ebon Plague and Crypt Fever - set basepoints for linked aura increasing disease damage taken
+        else if (GetSpellProto()->SpellFamilyName == SPELLFAMILY_DEATHKNIGHT &&
+            (GetSpellProto()->SpellIconID == 264 || GetSpellProto()->SpellIconID == 1933))
+        {
+            int32 bp0 = GetModifier()->m_amount;
+            if (pCaster)
+                pCaster->CastCustomSpell(pTarget, spellInfo, &bp0, NULL, NULL, true, NULL, this, GetCasterGuid(), GetSpellProto());
+        }
+        else
+            pTarget->CastSpell(pTarget, spellInfo, true, NULL, this);
+    }
+    else
+        pTarget->RemoveAurasByCasterSpell(linkedSpell, GetCasterGuid());
 }
 
 void Aura::HandleAuraAddMechanicAbilities(bool apply, bool Real)
