@@ -4061,6 +4061,25 @@ void Aura::HandleForceReaction(bool apply, bool Real)
     // stop fighting if at apply forced rank friendly or at remove real rank friendly
     if ((apply && faction_rank >= REP_FRIENDLY) || (!apply && player->GetReputationRank(faction_id) >= REP_FRIENDLY))
         player->StopAttackFaction(faction_id);
+
+    // drop BG flag if player is carrying
+    if (SpellEntry const* spellInfo = GetSpellProto())
+    {
+        switch (spellInfo->Id)
+        {
+            case 48020:                         // Demonic Circle
+            {
+                if (player->InBattleGround() && (player->HasAura(23335) || player->HasAura(23333) || player->HasAura(34976)))
+                {
+                    if (BattleGround* bg = player->GetBattleGround())
+                        bg->EventPlayerDroppedFlag(player);
+                }
+                break;
+            }
+            default:
+                break;
+        }
+    }
 }
 
 void Aura::HandleAuraModSkill(bool apply, bool /*Real*/)
@@ -5236,6 +5255,18 @@ void Aura::HandleModMechanicImmunity(bool apply, bool /*Real*/)
 
     target->ApplySpellImmune(GetId(), IMMUNITY_MECHANIC, misc, apply);
 
+    // Demonic Circle
+    if (GetSpellProto()->SpellFamilyName == SPELLFAMILY_WARLOCK && GetSpellProto()->SpellIconID == 3221)
+    {
+        if (target->GetTypeId() != TYPEID_PLAYER)
+            return;
+
+        if (apply)
+        {
+            if (GameObject* obj = target->GetGameObject(48018))
+                ((Player*)target)->TeleportTo(obj->GetMapId(), obj->GetPositionX(), obj->GetPositionY(), obj->GetPositionZ(), obj->GetOrientation(), TELE_TO_NOT_LEAVE_COMBAT);
+        }
+    }
     // Bestial Wrath
     if (GetSpellProto()->SpellFamilyName == SPELLFAMILY_HUNTER && GetSpellProto()->SpellIconID == 1680)
     {
@@ -5555,6 +5586,24 @@ void Aura::HandleAuraPeriodicDummy(bool apply, bool Real)
                         target->RemoveAurasDueToSpell(31665);
                     break;
                 }
+            }
+            break;
+        }
+        case SPELLFAMILY_WARLOCK:
+        {
+            switch (spell->Id)
+            {
+                case 48018:
+                {
+                    if (apply)
+                        target->CastSpell(target, 62388, true);
+                    else
+                    {
+                        target->RemoveGameObject(spell->Id, true);
+                        target->RemoveAurasDueToSpell(62388);
+                    }
+                }
+                break;
             }
             break;
         }
@@ -8402,6 +8451,32 @@ void Aura::PeriodicDummyTick()
                 // Force of Nature
                 case 33831:
                     return;
+                default:
+                    break;
+            }
+            break;
+        }
+        case SPELLFAMILY_WARLOCK:
+        {
+            switch (spell->Id)
+            {
+                case 48018:
+                {
+                    GameObject* obj = target->GetGameObject(spell->Id);
+                    if (!obj)
+                    {
+                         target->RemoveAurasDueToSpell(spell->Id);
+                         target->RemoveAurasDueToSpell(62388);
+                         return;
+                    }
+                    // We must take a range of teleport spell, not summon.
+                    const SpellEntry* goToCircleSpell = sSpellStore.LookupEntry(48020);
+                    if (target->IsWithinDist(obj, GetSpellMaxRange(sSpellRangeStore.LookupEntry(goToCircleSpell->GetRangeIndex()))))
+                        target->CastSpell(target, 62388, true);
+                    else
+                        target->RemoveAurasDueToSpell(62388);
+                    break;
+                }
                 default:
                     break;
             }
