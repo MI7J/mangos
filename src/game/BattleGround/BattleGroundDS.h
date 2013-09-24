@@ -18,6 +18,8 @@
 #ifndef __BATTLEGROUNDDS_H
 #define __BATTLEGROUNDDS_H
 
+#define WATERFALL_EVENT 250
+
 class BattleGround;
 
 class BattleGroundDSScore : public BattleGroundScore
@@ -25,7 +27,6 @@ class BattleGroundDSScore : public BattleGroundScore
     public:
         BattleGroundDSScore() {};
         virtual ~BattleGroundDSScore() {};
-        // TODO fix me
 };
 
 class BattleGroundDS : public BattleGround
@@ -34,8 +35,29 @@ class BattleGroundDS : public BattleGround
 
     public:
         BattleGroundDS();
+        ~BattleGroundDS();
+        void Update(uint32 diff);
 
         /* inherited from BattlegroundClass */
-        virtual void AddPlayer(Player* plr) override;
+        virtual void AddPlayer(Player* plr);
+        virtual void StartingEventCloseDoors();
+        virtual void StartingEventOpenDoors();
+
+        void RemovePlayer(Player* plr, ObjectGuid guid);
+        void HandleAreaTrigger(Player* source, uint32 trigger);
+        bool SetupBattleGround();
+        virtual void Reset();
+        virtual void FillInitialWorldStates();
+        void HandleKillPlayer(Player* player, Player* killer);
+        bool HandlePlayerUnderMap(Player* plr);
+        bool teleportCheck;
+        uint32 m_uiTeleport;
+
+        bool pushbackCheck;
+        uint32 m_uiWaterfall;
+        bool waterfallActivated;
+
+    private:
+        uint32 m_uiKnockback;
 };
 #endif

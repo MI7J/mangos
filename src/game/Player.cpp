@@ -8888,6 +8888,16 @@ void Player::SendInitWorldStates(uint32 zoneid, uint32 areaid)
                 FillInitialWorldState(data, count, 0xbba, 0x0); // 3002 9 show
             }
             break;
+        case 4378:                                          // Dalaran Severs
+            if (bg && bg->GetTypeID(true) == BATTLEGROUND_DS)
+                bg->FillInitialWorldStates(data, count);
+            else
+            {
+                FillInitialWorldState(data, count, 0xe11, 0x0); // 7 gold
+                FillInitialWorldState(data, count, 0xe10, 0x0); // 8 green
+                FillInitialWorldState(data, count, 0xe1a, 0x0); // 9 show
+            }
+            break;
         default:
             FillInitialWorldState(data, count, 0x914, 0x0); // 2324 7
             FillInitialWorldState(data, count, 0x913, 0x0); // 2323 8
