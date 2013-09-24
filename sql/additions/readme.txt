@@ -82,3 +82,4 @@ change log [custom patches]:
     cp 79 - Implemented Dalaran Sewers (Arena). Patch provided by Spp, Insider, rsa
     cp 80 - Added special table to DB for storage non-existed in DBC spells. Patch provided by QAston and Wowka321
     cp 81 - Fixed spell Demonic Circle by Insider
+    cp 82 - Fix: creatures and totems shouldn't be able to crit with spells. Patch provided by PSZ, rsa
