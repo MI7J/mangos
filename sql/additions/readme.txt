@@ -71,3 +71,4 @@ change log [custom patches]:
     cp 68 - Fixed spell 66118. Patch provided by MaS0n and Insider
     cp 69 - Implemented SPELL_AURA_284. Patch provided by zergtmn
     cp 70 - Immunities for dispel type 5 and 6 should not remove causing auras but only restore visibility. Patch provided by KillerFrca
+    cp 71 - Added debug logging of spelldifficulties

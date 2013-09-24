@@ -6628,7 +6628,7 @@ uint32 Unit::SpellDamageBonusDone(Unit* pVictim, SpellEntry const* spellProto, u
     AuraList const& mDummy = owner->GetAurasByType(SPELL_AURA_DUMMY);
     for(AuraList::const_iterator i = mDummy.begin(); i != mDummy.end(); ++i)
     {
-        SpellEntry const *spell = (*i)->GetSpellProto();
+        SpellEntry const* spell = (*i)->GetSpellProto();
         //Fire and Brimstone
         if (spell->SpellFamilyName == SPELLFAMILY_WARLOCK && spell->SpellIconID == 3173)
         {

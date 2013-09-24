@@ -4739,6 +4739,12 @@ SpellEntry const* GetSpellEntryByDifficulty(uint32 id, Difficulty difficulty, bo
     if (!spellDiff)
         return NULL;
 
+    DEBUG_LOG("Searching spell %u in SpellDifficulty.dbc: Result is: %u/%u/%u/%u ", id,
+    spellDiff->spellId[RAID_DIFFICULTY_10MAN_NORMAL],
+    spellDiff->spellId[RAID_DIFFICULTY_25MAN_NORMAL],
+    spellDiff->spellId[RAID_DIFFICULTY_10MAN_HEROIC],
+    spellDiff->spellId[RAID_DIFFICULTY_25MAN_HEROIC]);
+
     for (Difficulty diff = difficulty; diff >= REGULAR_DIFFICULTY; diff = GetPrevDifficulty(diff, isRaid))
     {
         if (spellDiff->spellId[diff])
