@@ -88,7 +88,17 @@ class DBCStorage
             nCount = 0;
         }
 
-        void EraseEntry(uint32 id) { assert(id < nCount && "To be erased entry must be in bounds!") ; indexTable[id] = NULL; }
+        void EraseEntry(uint32 id) 
+        {
+            assert(id < nCount && "To be erased entry must be in bounds!"); 
+
+            /* FIXME! Need delete SpellEntry object while EraseEntry execution, but currently this unsafe. Some memleak here, 
+            also new memleak at each other reload spell_dbc table
+
+            if (indexTable[id] != NULL)
+                delete indexTable[id];*/
+            indexTable[id] = NULL; 
+        }
         void InsertEntry(T* entry, uint32 id) { assert(id < nCount && "To be inserted entry must be in bounds!"); indexTable[id] = entry; }
 
     private:

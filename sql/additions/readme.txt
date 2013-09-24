@@ -80,3 +80,4 @@ change log [custom patches]:
     cp 77 - Fixed spells 51662, 48432 and ranks
     cp 78 - Fixed spell 47977. Patch provided by Insider
     cp 79 - Implemented Dalaran Sewers (Arena). Patch provided by Spp, Insider, rsa
+    cp 80 - Added special table to DB for storage non-existed in DBC spells. Patch provided by QAston and Wowka321
