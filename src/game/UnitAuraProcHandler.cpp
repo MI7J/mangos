@@ -2789,6 +2789,11 @@ SpellAuraProcResult Unit::HandleDummyAuraProc(Unit* pVictim, uint32 damage, Aura
                 // triggered_spell_id in spell data
                 break;
             }
+            // Hungering Cold - not proc from dummy
+            if (dummySpell->SpellIconID == 2797)
+            {
+                return SPELL_AURA_PROC_CANT_TRIGGER;
+            }
             break;
         }
         default:

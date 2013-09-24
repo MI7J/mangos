@@ -74,3 +74,4 @@ change log [custom patches]:
     cp 71 - Added debug logging of spelldifficulties
     cp 72 - Fixed spell 51690. Patch provided by Insider
     cp 73 - Hack-fix for exploit and crash with InstanceMap::Add. Patch provided by Insider, rsa
+    cp 74 - Fixed spell 49203. Patch provided by KillerFrca
