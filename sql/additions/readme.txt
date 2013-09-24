@@ -77,3 +77,4 @@ change log [custom patches]:
     cp 74 - Fixed spell 49203. Patch provided by KillerFrca
     cp 75 - Small fix for [cp 72]
     cp 76 - Fixed exploit with spell 49005. Patch provided by laise
+    cp 77 - Fixed spells 51662, 48432 and ranks
