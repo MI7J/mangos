@@ -8471,7 +8471,7 @@ void Aura::PeriodicDummyTick()
                     }
                     // We must take a range of teleport spell, not summon.
                     const SpellEntry* goToCircleSpell = sSpellStore.LookupEntry(48020);
-                    if (target->IsWithinDist(obj, GetSpellMaxRange(sSpellRangeStore.LookupEntry(goToCircleSpell->GetRangeIndex()))))
+                    if (target->IsWithinDist(obj, GetSpellMaxRange(sSpellRangeStore.LookupEntry(goToCircleSpell->rangeIndex))))
                         target->CastSpell(target, 62388, true);
                     else
                         target->RemoveAurasDueToSpell(62388);
@@ -8729,7 +8729,7 @@ void Aura::HandleAuraLinked(bool apply, bool Real)
         return;
 
     uint32 linkedSpell = GetSpellProto()->EffectTriggerSpell[m_effIndex];
-    SpellEntry const *spellInfo = sSpellStore.LookupEntry(linkedSpell);
+    SpellEntry const* spellInfo = sSpellStore.LookupEntry(linkedSpell);
     Unit* pTarget = GetTarget();
     Unit* pCaster = GetCaster();
 
@@ -8741,21 +8741,14 @@ void Aura::HandleAuraLinked(bool apply, bool Real)
 
     if (apply)
     {
-        if (pCaster && pCaster->GetTypeId() == TYPEID_PLAYER &&
-            pTarget->IsVehicle() &&
-            spellInfo->HasAttribute(SPELL_ATTR_EX_HIDDEN_AURA) &&
-            spellInfo->HasAttribute(SPELL_ATTR_HIDE_IN_COMBAT_LOG))
+        if (pCaster && pCaster->GetTypeId() == TYPEID_PLAYER && pTarget->IsVehicle())
         {
-            float bonus = ((float)((Player*)pCaster)->GetEquipGearScore(false, false) - (float)sWorld.getConfig(CONFIG_UINT32_GEAR_CALC_BASE))
-                                 / (float)sWorld.getConfig(CONFIG_UINT32_GEAR_CALC_BASE);
-
             float curHealthRatio = pTarget->GetHealthPercent() / 100.0f;
+            int32 bp0 = int32(((float)spellInfo->EffectBasePoints[EFFECT_INDEX_0]) * 100);
+            int32 bp1 = int32(((float)spellInfo->EffectBasePoints[EFFECT_INDEX_1]) * 100);
+            int32 bp2 = int32(((float)spellInfo->EffectBasePoints[EFFECT_INDEX_2]) * 100);
 
-            int32 bp0 = int32(((float)spellInfo->EffectBasePoints[EFFECT_INDEX_0] + bonus) * 100);
-            int32 bp1 = int32(((float)spellInfo->EffectBasePoints[EFFECT_INDEX_1] + bonus) * 100);
-            int32 bp2 = int32(((float)spellInfo->EffectBasePoints[EFFECT_INDEX_2] + bonus) * 100);
-
-            // don't lower stats of vehicle, if GS player below then calculation base
+            // don't lower stats of vehicle
             if (bp0 < 0)
                 bp0 = 0;
             if (bp1 < 0)
@@ -8776,7 +8769,7 @@ void Aura::HandleAuraLinked(bool apply, bool Real)
         }
         else
             pTarget->CastSpell(pTarget, spellInfo, true, NULL, this);
-    }
+	}
     else
         pTarget->RemoveAurasByCasterSpell(linkedSpell, GetCasterGuid());
 }

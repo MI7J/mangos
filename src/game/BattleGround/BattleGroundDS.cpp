@@ -222,11 +222,11 @@ void BattleGroundDS::HandleAreaTrigger(Player* source, uint32 trigger)
     }
 }
 
-void BattleGroundDS::FillInitialWorldStates()
+void BattleGroundDS::FillInitialWorldStates(WorldPacket& data, uint32& count)
 {
-    FillInitialWorldState(0xe11, GetAlivePlayersCountByTeam(ALLIANCE));
-    FillInitialWorldState(0xe10, GetAlivePlayersCountByTeam(HORDE));
-    FillInitialWorldState(0xe1a, 1);
+    FillInitialWorldState(data, count, 0xe11, GetAlivePlayersCountByTeam(ALLIANCE));
+    FillInitialWorldState(data, count, 0xe10, GetAlivePlayersCountByTeam(HORDE));
+    FillInitialWorldState(data, count, 0xe1a, 1);
 }
 
 void BattleGroundDS::Reset()
