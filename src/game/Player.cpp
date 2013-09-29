@@ -1340,7 +1340,7 @@ void Player::Update(uint32 update_diff, uint32 p_time)
             RegenerateAll();
     }
 
-    if (!isAlive() && !HasFlag(PLAYER_FLAGS, PLAYER_FLAGS_GHOST))
+    if (!isAlive() && !HasFlag(PLAYER_FLAGS, PLAYER_FLAGS_GHOST) && getDeathState() != GHOULED)
         SetHealth(0);
 
     if (m_deathState == JUST_DIED)
@@ -4415,7 +4415,9 @@ void Player::BuildPlayerRepop()
     }
     GetMap()->Add(corpse);
 
-    SetHealth(1);
+    // convert player body to ghost
+    if (getDeathState() != GHOULED)
+        SetHealth(1);
 
     SetWaterWalk(true);
     if (!GetSession()->isLogingOut())

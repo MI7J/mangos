@@ -6443,7 +6443,7 @@ void Spell::EffectSummonPet(SpellEffectIndex eff_idx)
     {
         // Remove Demonic Sacrifice auras (new pet)
         Unit::AuraList const& auraClassScripts = m_caster->GetAurasByType(SPELL_AURA_OVERRIDE_CLASS_SCRIPTS);
-        for(Unit::AuraList::const_iterator itr = auraClassScripts.begin(); itr != auraClassScripts.end();)
+        for (Unit::AuraList::const_iterator itr = auraClassScripts.begin(); itr != auraClassScripts.end();)
         {
             if ((*itr)->GetModifier()->m_miscvalue == 2228)
             {
