@@ -937,7 +937,7 @@ void Object::MarkForClientUpdate()
 }
 
 WorldObject::WorldObject() :
-    m_transportInfo(NULL), m_currMap(NULL),
+    m_groupLootTimer(0), m_groupLootId(0), m_transportInfo(NULL), m_currMap(NULL),
     m_mapId(0), m_InstanceId(0), m_phaseMask(PHASEMASK_NORMAL),
     m_isActiveObject(false)
 {
@@ -1920,6 +1920,25 @@ bool WorldObject::IsControlledByPlayer() const
         default:
             return false;
     }
+}
+
+void WorldObject::StartGroupLoot(Group* group, uint32 timer)
+{
+    m_groupLootId = group->GetId();
+    m_groupLootTimer = timer;
+}
+
+void WorldObject::StopGroupLoot()
+{
+    if (!m_groupLootId)
+        return;
+
+    Group* group = sObjectMgr.GetGroupById(m_groupLootId);
+    if (group)
+        group->EndRoll();
+
+    m_groupLootTimer = 0;
+    m_groupLootId = 0;
 }
 
 bool WorldObject::PrintCoordinatesError(float x, float y, float z, char const* descr) const

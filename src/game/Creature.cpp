@@ -136,7 +136,6 @@ Creature::Creature(CreatureSubtype subtype) : Unit(),
     i_AI(NULL),
     loot(this),
     lootForPickPocketed(false), lootForBody(false), lootForSkin(false),
-    m_groupLootTimer(0), m_groupLootId(0),
     m_lootMoney(0), m_lootGroupRecipientId(0),
     m_corpseDecayTimer(0), m_respawnTime(0), m_respawnDelay(25), m_corpseDelay(60), m_respawnradius(5.0f),
     m_subtype(subtype), m_defaultMovementType(IDLE_MOTION_TYPE), m_equipmentId(0),
@@ -591,24 +590,6 @@ void Creature::Update(uint32 update_diff, uint32 diff)
         default:
             break;
     }
-}
-
-void Creature::StartGroupLoot(Group* group, uint32 timer)
-{
-    m_groupLootId = group->GetId();
-    m_groupLootTimer = timer;
-}
-
-void Creature::StopGroupLoot()
-{
-    if (!m_groupLootId)
-        return;
-
-    if (Group* group = sObjectMgr.GetGroupById(m_groupLootId))
-        group->EndRoll();
-
-    m_groupLootTimer = 0;
-    m_groupLootId = 0;
 }
 
 void Creature::RegenerateAll(uint32 update_diff)

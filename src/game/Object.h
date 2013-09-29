@@ -591,6 +591,10 @@ class MANGOS_DLL_SPEC WorldObject : public Object
 
         GameObject* SummonGameobject(uint32 id, float x, float y, float z, float angle, uint32 despwtime);
 
+        // Loot System
+        void StartGroupLoot(Group* group, uint32 timer);
+        void StopGroupLoot();
+
         bool isActiveObject() const { return m_isActiveObject || m_viewPoint.hasViewers(); }
         void SetActiveObjectState(bool active);
 
@@ -610,7 +614,8 @@ class MANGOS_DLL_SPEC WorldObject : public Object
         void SetLocationMapId(uint32 _mapId) { m_mapId = _mapId; }
         void SetLocationInstanceId(uint32 _instanceId) { m_InstanceId = _instanceId; }
 
-        virtual void StopGroupLoot() {}
+        uint32 m_groupLootTimer;                            // (msecs)timer used for group loot
+        uint32 m_groupLootId;                               // used to find group which is looting corpse
 
         std::string m_name;
 

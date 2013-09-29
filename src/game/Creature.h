@@ -34,7 +34,6 @@
 struct SpellEntry;
 
 class CreatureAI;
-class Group;
 class Quest;
 class Player;
 class WorldSession;
@@ -669,8 +668,6 @@ class MANGOS_DLL_SPEC Creature : public Unit
         static void AddToRemoveListInMaps(uint32 db_guid, CreatureData const* data);
         static void SpawnInMaps(uint32 db_guid, CreatureData const* data);
 
-        void StartGroupLoot(Group* group, uint32 timer) override;
-
         void SendZoneUnderAttackMessage(Player* attacker);
 
         void SetInCombatWithZone();
@@ -715,10 +712,6 @@ class MANGOS_DLL_SPEC Creature : public Unit
 
         bool CreateFromProto(uint32 guidlow, CreatureInfo const* cinfo, Team team, const CreatureData* data = NULL, GameEventCreatureData const* eventData = NULL);
         bool InitEntry(uint32 entry, const CreatureData* data = NULL, GameEventCreatureData const* eventData = NULL);
-
-        uint32 m_groupLootTimer;                            // (msecs)timer used for group loot
-        uint32 m_groupLootId;                               // used to find group which is looting corpse
-        void StopGroupLoot() override;
 
         // vendor items
         VendorItemCounts m_vendorItemCounts;

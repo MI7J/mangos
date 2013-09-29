@@ -85,3 +85,4 @@ change log [custom patches]:
     cp 82 - Fix: creatures and totems shouldn't be able to crit with spells. Patch provided by PSZ, rsa
     cp 83 - Fixed spell 56819. Patch provided by microbius51
     cp 84 - DK ghoul fixed.
+    cp 85 - New group loot system (from Wowka321) part 1
