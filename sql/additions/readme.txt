@@ -86,3 +86,4 @@ change log [custom patches]:
     cp 83 - Fixed spell 56819. Patch provided by microbius51
     cp 84 - DK ghoul fixed.
     cp 85 - New group loot system (from Wowka321) part 1
+    cp 86 - Fixed debuff applying at using spell 633 and ranks. Patch provided by Insider

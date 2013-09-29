@@ -204,6 +204,8 @@ DELETE FROM spell_bonus_data WHERE entry = 54158;
 -- spell_proc_event
 -- (12317) Enrage
 DELETE FROM spell_proc_event WHERE entry = 12317;
+-- (22812) Barkskin
+DELETE FROM spell_proc_event WHERE entry = 22812;
 -- Fingers of Frost talent auras proc
 DELETE FROM spell_proc_event WHERE entry IN (44543, 44545);
 INSERT INTO spell_proc_event VALUES
