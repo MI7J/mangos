@@ -6217,6 +6217,12 @@ void Unit::AddGuardian(Pet* pet)
 
 void Unit::RemoveGuardian(Pet* pet)
 {
+    if (GetTypeId() == TYPEID_PLAYER)
+    {
+        SpellEntry const* spellInfo = sSpellStore.LookupEntry(pet->GetUInt32Value(UNIT_CREATED_BY_SPELL));
+        if (spellInfo && spellInfo->HasAttribute(SPELL_ATTR_DISABLED_WHILE_ACTIVE))
+            ((Player*)this)->SendCooldownEvent(spellInfo);
+    }
     m_guardianPets.erase(pet->GetObjectGuid());
 }
 

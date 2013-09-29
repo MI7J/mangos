@@ -412,6 +412,7 @@ enum DeathState
     CORPSE         = 2,                                     // corpse state, for player this also meaning that player not leave corpse
     DEAD           = 3,                                     // for creature despawned state (corpse despawned), for player CORPSE/DEAD not clear way switches (FIXME), and use m_deathtimer > 0 check for real corpse state
     JUST_ALIVED    = 4,                                     // temporary state at resurrection, for creature auto converted to ALIVE, for player at next update call
+    GHOULED        = 5
 };
 
 // internal state flags for some auras and movement generators, other.
@@ -2265,6 +2266,7 @@ class MANGOS_DLL_SPEC Unit : public WorldObject
         Pet* FindGuardianWithEntry(uint32 entry);
         Pet* GetProtectorPet();                             // expected single case in guardian list
 
+        GuardianPetList const& GetGuardians() const { return m_guardianPets; }
         bool isCharmed() const { return !GetCharmerGuid().IsEmpty(); }
 
         CharmInfo* GetCharmInfo() { return m_charmInfo; }

@@ -622,6 +622,9 @@ void Spell::FillTargetMap()
                         case TARGET_EFFECT_SELECT:
                             SetTargetMap(SpellEffectIndex(i), m_spellInfo->EffectImplicitTargetA[i], tmpUnitLists[i /*==effToIndex[i]*/]);
                             break;
+                        case TARGET_RANDOM_NEARBY_DEST:
+                            SetTargetMap(SpellEffectIndex(i), m_spellInfo->EffectImplicitTargetA[i], tmpUnitLists[i /*==effToIndex[i]*/]);
+                            break;
                         case TARGET_AREAEFFECT_CUSTOM:
                             // triggered spells get dest point from default target set, ignore it
                             if (!(m_targets.m_targetMask & TARGET_FLAG_DEST_LOCATION) || m_IsTriggeredSpell)
@@ -3823,7 +3826,11 @@ void Spell::SendCastResult(Player* caster, SpellEntry const* spellInfo, uint8 ca
             data << uint32(spellInfo->EquippedItemSubClassMask);// seems correct...
             break;
         case SPELL_FAILED_REAGENTS:
-            data << uint32(0);                              // item id
+            // normally client checks reagents, just some script effects here
+            if (spellInfo->Id == 46584)                      // Raise Dead
+                data << uint32(37201);                      // Corpse Dust
+            else
+                data << uint32(0);                              // item id
             break;
         case SPELL_FAILED_NEED_MORE_ITEMS:
             data << uint32(0);                              // item id
