@@ -8769,7 +8769,7 @@ void Aura::HandleAuraLinked(bool apply, bool Real)
         }
         else
             pTarget->CastSpell(pTarget, spellInfo, true, NULL, this);
-	}
+    }
     else
         pTarget->RemoveAurasByCasterSpell(linkedSpell, GetCasterGuid());
 }

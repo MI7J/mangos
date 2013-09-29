@@ -83,3 +83,4 @@ change log [custom patches]:
     cp 80 - Added special table to DB for storage non-existed in DBC spells. Patch provided by QAston and Wowka321
     cp 81 - Fixed spell Demonic Circle by Insider
     cp 82 - Fix: creatures and totems shouldn't be able to crit with spells. Patch provided by PSZ, rsa
+    cp 83 - Fixed spell 56819. Patch provided by microbius51
