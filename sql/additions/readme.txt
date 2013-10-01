@@ -89,3 +89,4 @@ change log [custom patches]:
     cp 86 - Fixed debuff applying at using spell 633 and ranks. Patch provided by Insider
     cp 87 - Fixed spell (Dancing Rune Weapon) 49028. Patch provided by Feanordev
     cp 88 - Fix: don't allow to summon gameobjects at transport. Patch provided by Insider
+    cp 89 - Implemented Ring of Valor (Arena). Patch provided by Spp and Insider

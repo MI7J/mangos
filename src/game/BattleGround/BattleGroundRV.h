@@ -34,8 +34,24 @@ class BattleGroundRV : public BattleGround
 
     public:
         BattleGroundRV();
+        ~BattleGroundRV();
+        void Update(uint32 diff);
 
         /* inherited from BattlegroundClass */
-        virtual void AddPlayer(Player* plr) override;
+        virtual void AddPlayer(Player* plr);
+        virtual void StartingEventCloseDoors();
+        virtual void StartingEventOpenDoors();
+
+        void RemovePlayer(Player* plr, ObjectGuid guid);
+        void HandleAreaTrigger(Player* source, uint32 trigger);
+        bool SetupBattleGround();
+        virtual void Reset();
+        virtual void FillInitialWorldStates(WorldPacket& data, uint32& count);
+        void HandleKillPlayer(Player* player, Player* killer);
+        bool HandlePlayerUnderMap(Player* plr);
+    private:
+        uint32 m_uiTeleport;
+        uint32 m_uiPillarSwitch;
+        uint32 m_uiFireTimer;
 };
 #endif
