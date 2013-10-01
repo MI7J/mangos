@@ -179,15 +179,11 @@ bool GameObject::Create(uint32 guidlow, uint32 name_id, Map* map, uint32 phaseMa
     {
         case GAMEOBJECT_TYPE_TRAP:
         case GAMEOBJECT_TYPE_FISHINGNODE:
-        {
             m_lootState = GO_NOT_READY;                     // Initialize Traps and Fishingnode delayed in ::Update
             break;
-        }
         case GAMEOBJECT_TYPE_DESTRUCTIBLE_BUILDING:
-        {
             ForceGameObjectHealth(GetMaxHealth(), NULL);
             break;
-        }
         case GAMEOBJECT_TYPE_TRANSPORT:
         {
             SetFlag(GAMEOBJECT_FLAGS, (GO_FLAG_TRANSPORT | GO_FLAG_NODESPAWN));

@@ -64,9 +64,9 @@ void BattleGroundRV::Update(uint32 diff)
 
         if (m_uiPillarSwitch < diff)
         {
-            /*for (BattleGroundPlayerMap::const_iterator itr = GetPlayers().begin(); itr != GetPlayers().end(); ++itr)
+            for (BattleGroundPlayerMap::const_iterator itr = GetPlayers().begin(); itr != GetPlayers().end(); ++itr)
             {
-                Player * plr = sObjectMgr.GetPlayer(itr->first);
+                Player* plr = sObjectMgr.GetPlayer(itr->first);
                 if (!plr)
                     continue;
 
@@ -74,14 +74,14 @@ void BattleGroundRV::Update(uint32 diff)
 
                 for (int i = 0; i < 8; ++i)
                 {
-                    if (GameObject * pPillar = plr->GetClosestGameObjectWithEntry(plr, m_uiObjects[i], 100))
+                    if (GameObject* pPillar = plr->GetClosestGameObjectWithEntry(plr, m_uiObjects[i], 100))
                     {
                         pPillar->SetLootState(GO_READY);
                         pPillar->UseDoorOrButton(RESPAWN_ONE_DAY);
                     }
                 }
                 break; // End on 1 succesful iteration
-            }*/
+            }
             // + urand(0, 30000);
             m_uiPillarSwitch = 120000;
         }

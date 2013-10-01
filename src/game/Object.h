@@ -595,6 +595,11 @@ class MANGOS_DLL_SPEC WorldObject : public Object
         void StartGroupLoot(Group* group, uint32 timer);
         void StopGroupLoot();
 
+        // helper functions to select units
+        Creature* GetClosestCreatureWithEntry(WorldObject* pSource, uint32 uiEntry, float fMaxSearchRange);
+        GameObject* GetClosestGameObjectWithEntry(const WorldObject* pSource, uint32 uiEntry, float fMaxSearchRange);
+        void GetGameObjectListWithEntryInGrid(std::list<GameObject*>& lList, uint32 uiEntry, float fMaxSearchRange);
+
         bool isActiveObject() const { return m_isActiveObject || m_viewPoint.hasViewers(); }
         void SetActiveObjectState(bool active);
 
