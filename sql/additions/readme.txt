@@ -95,3 +95,4 @@ change log [custom patches]:
     cp 92 - Fix: don't allow to use some teleport spells at transport. Patch provided by Insider
     cp 93 - Fixed health amount of creature summoned by spell 16190. Patch provided by Insider
     cp 94 - Fix crush in ThreatManager (from Wowka321)
+    cp 95 - ACHIEVEMENT_FLAG_HIDDEN implement (from Wowka321)
