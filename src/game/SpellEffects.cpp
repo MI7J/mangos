@@ -5488,6 +5488,9 @@ bool Spell::DoSummonTotem(SpellEffectIndex eff_idx, uint8 slot_dbc)
 
     pTotem->SetDuration(m_duration);
 
+    if (m_spellInfo->Id == 16190)
+        damage = m_caster->GetMaxHealth() * m_spellInfo->CalculateSimpleValue(EFFECT_INDEX_1) / 100;
+
     if (damage)                                             // if not spell info, DB values used
     {
         pTotem->SetMaxHealth(damage);

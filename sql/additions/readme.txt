@@ -93,3 +93,4 @@ change log [custom patches]:
     cp 90 - Added helper functions to select units
     cp 91 - Fixed spell 50117 and ranks. Patch provided by kero99
     cp 92 - Fix: don't allow to use some teleport spells at transport. Patch provided by Insider
+    cp 93 - Fixed health amount of creature summoned by spell 16190. Patch provided by Insider
