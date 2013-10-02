@@ -91,3 +91,4 @@ change log [custom patches]:
     cp 88 - Fix: don't allow to summon gameobjects at transport. Patch provided by Insider
     cp 89 - Implemented Ring of Valor (Arena). Patch provided by Spp and Insider
     cp 90 - Added helper functions to select units
+    cp 91 - Fixed spell 50117 and ranks. Patch provided by kero99
