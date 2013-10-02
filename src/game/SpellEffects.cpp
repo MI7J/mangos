@@ -381,7 +381,7 @@ void Spell::EffectSchoolDMG(SpellEffectIndex effect_idx)
                         if (unitTarget->GetEntry() == 26125 && (unitTarget->GetObjectGuid() == m_caster->GetObjectGuid()))
                         {
                             // After explode the ghoul must be killed
-                            unitTarget->KillSelf();
+                            unitTarget->DealDamage(unitTarget, unitTarget->GetMaxHealth(), NULL, DIRECT_DAMAGE, SPELL_SCHOOL_MASK_NORMAL, NULL, false);
                         }
                         break;
                     }
@@ -3201,6 +3201,7 @@ void Spell::EffectDummy(SpellEffectIndex eff_idx)
                 }
                 case 14185:                                 // Preparation
                 {
+                    bool glyph = m_caster->HasAura(56819);
                     if (m_caster->GetTypeId() != TYPEID_PLAYER)
                         return;
 
@@ -3214,7 +3215,7 @@ void Spell::EffectDummy(SpellEffectIndex eff_idx)
                             ((Player*)m_caster)->RemoveSpellCooldown((itr++)->first, true);
                         // Glyph of Preparation
                         else if (glyph && (spellInfo->SpellFamilyName == SPELLFAMILY_ROGUE && (spellInfo->SpellFamilyFlags & 0x40000010 || spellInfo->Id == 51722)))
-                            m_caster->RemoveSpellCooldown(itr->first,true);
+                            ((Player*)m_caster)->RemoveSpellCooldown((itr++)->first, true);
                     }
                     return;
                 }

@@ -2266,7 +2266,6 @@ class MANGOS_DLL_SPEC Unit : public WorldObject
         Pet* FindGuardianWithEntry(uint32 entry);
         Pet* GetProtectorPet();                             // expected single case in guardian list
 
-        GuardianPetList const& GetGuardians() const { return m_guardianPets; }
         bool isCharmed() const { return !GetCharmerGuid().IsEmpty(); }
 
         CharmInfo* GetCharmInfo() { return m_charmInfo; }

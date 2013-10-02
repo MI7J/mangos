@@ -1865,19 +1865,6 @@ GameObject* WorldObject::GetClosestGameObjectWithEntry(const WorldObject* pSourc
     return pGameObject;
 }
 
-void WorldObject::GetGameObjectListWithEntryInGrid(std::list<GameObject*>& lList, uint32 uiEntry, float fMaxSearchRange)
-{
-    CellPair pair(MaNGOS::ComputeCellPair(this->GetPositionX(), this->GetPositionY()));
-    Cell cell(pair);
-    cell.SetNoCreate();
-
-    MaNGOS::AllGameObjectsWithEntryInRange check(this, uiEntry, fMaxSearchRange);
-    MaNGOS::GameObjectListSearcher<MaNGOS::AllGameObjectsWithEntryInRange> searcher(lList, check);
-    TypeContainerVisitor<MaNGOS::GameObjectListSearcher<MaNGOS::AllGameObjectsWithEntryInRange>, GridTypeMapContainer> visitor(searcher);
-
-    GetMap()->Visit(cell, visitor);
-}
-
 void WorldObject::UpdateVisibilityAndView()
 {
     GetViewPoint().Call_UpdateVisibilityForOwner();
