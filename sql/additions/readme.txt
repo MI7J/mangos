@@ -100,3 +100,4 @@ change log [custom patches]:
     cp 97 - Fixed spell 31850 and ranks. Patch provided by n0n4m3
     cp 98 - Fixed exploit with spell 53563. Patch provided by johonson
     cp 99 - Fixed spells 49208, 49467, 54639 and ranks. Patch provided by Laise
+    cp 100 - Fix Spells with same Icons (from Hunderkuchen)
