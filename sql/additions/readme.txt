@@ -99,3 +99,4 @@ change log [custom patches]:
     cp 96 - Removed wrong flag used in dbc for spell 27827. Patch provided by Insider
     cp 97 - Fixed spell 31850 and ranks. Patch provided by n0n4m3
     cp 98 - Fixed exploit with spell 53563. Patch provided by johonson
+    cp 99 - Fixed spells 49208, 49467, 54639 and ranks. Patch provided by Laise
