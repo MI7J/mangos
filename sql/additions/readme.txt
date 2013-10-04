@@ -96,3 +96,4 @@ change log [custom patches]:
     cp 93 - Fixed health amount of creature summoned by spell 16190. Patch provided by Insider
     cp 94 - Fix crush in ThreatManager (from Wowka321)
     cp 95 - ACHIEVEMENT_FLAG_HIDDEN implement (from Wowka321)
+    cp 96 - Removed wrong flag used in dbc for spell 27827. Patch provided by Insider
