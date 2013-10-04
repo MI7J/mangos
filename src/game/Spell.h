@@ -577,6 +577,7 @@ class Spell
         // Spell target filling
         //*****************************************
         void FillTargetMap();
+        bool FillCustomTargetMap(SpellEffectIndex effIndex, UnitList &targetUnitMap);
         void SetTargetMap(SpellEffectIndex effIndex, uint32 targetMode, UnitList& targetUnitMap);
 
         void FillAreaTargets(UnitList& targetUnitMap, float radius, SpellNotifyPushType pushType, SpellTargets spellTargets, WorldObject* originalCaster = NULL);
