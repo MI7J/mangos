@@ -429,7 +429,7 @@ WorldObject* Spell::FindCorpseUsing()
 
     WorldObject* result = NULL;
 
-    T u_check(m_caster, max_range);
+    T u_check(((Player*)m_caster), max_range);
     MaNGOS::WorldObjectSearcher<T> searcher(result, u_check);
 
     Cell::VisitGridObjects(m_caster, searcher, max_range);
@@ -455,7 +455,7 @@ bool Spell::FillCustomTargetMap(SpellEffectIndex i, UnitList &targetUnitMap)
         {
             WorldObject* cTarget = FindCorpseUsing <MaNGOS::RaiseDeadObjectCheck> ();
             if (cTarget->GetTypeId() != TYPEID_UNIT)
-                return;
+                return false;
 
             if (cTarget && cTarget->IsInWorld())
                 targetUnitMap.push_back((Unit*)cTarget);

@@ -9229,8 +9229,8 @@ void Spell::EffectScriptEffect(SpellEffectIndex eff_idx)
                         return;
                     }
                     finish(true);
-                    m_caster->RemoveSpellCooldown(m_spellInfo->CalculateSimpleValue(EFFECT_INDEX_2), true);
-                    m_caster->RemoveSpellCooldown(m_spellInfo->CalculateSimpleValue(EFFECT_INDEX_1), true);
+                    ((Player*)m_caster)->RemoveSpellCooldown(m_spellInfo->CalculateSimpleValue(EFFECT_INDEX_2), true);
+                    ((Player*)m_caster)->RemoveSpellCooldown(m_spellInfo->CalculateSimpleValue(EFFECT_INDEX_1), true);
                     CancelGlobalCooldown();
                     return;
                 }
