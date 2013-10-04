@@ -102,3 +102,4 @@ change log [custom patches]:
     cp 99 - Fixed spells 49208, 49467, 54639 and ranks. Patch provided by Laise
     cp 100 - Fix Spells with same Icons (from Hunderkuchen)
     cp 101 - Fix removing debuf 70541, 73779, 73780, 73781 at 90% health. original patch by Wowka321, modified by rsa
+    cp 102 - Really stop moving on fear/confused remove. Patch provided by Tasssadar
