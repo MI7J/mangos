@@ -7872,6 +7872,17 @@ void Spell::GetSpellRangeAndRadius(SpellEffectIndex effIndex, float& radius, uin
                 case 63482:                                 // Lightning Whirl (h) (Ulduar, Stormcaller Brundir)
                     unMaxTargets = urand(3, 6);
                     break;
+                case 72350:                                 // Fury of Frostmourne
+                case 72351:                                 // Fury of Frostmourne 
+                    radius = 300;
+                    break;
+                case 72754:                                 // Defile. Radius depended from scale.
+                case 73708:                                 // Defile 25
+                case 73709:                                 // Defile 10H
+                case 73710:                                 // Defile 25H
+                    if (Unit* realCaster = GetAffectiveCaster())
+                        radius = realCaster->GetObjectScale() * 6;
+                    break;
                 case 74452:                                 // Conflagration (Saviana, Ruby Sanctum)
                 {
                     if (m_caster)

@@ -402,7 +402,7 @@ void Spell::EffectSchoolDMG(SpellEffectIndex effect_idx)
                     case 67485:
                         damage += uint32(0.5f * m_caster->GetTotalAttackPowerValue(BASE_ATTACK));
                         break;
-                        // Magic Bane normal (Forge of Souls - Bronjahm)
+                    // Magic Bane normal (Forge of Souls - Bronjahm)
                     case 68793:
                     {
                         damage += uint32(unitTarget->GetMaxPower(POWER_MANA) / 2);
@@ -414,6 +414,19 @@ void Spell::EffectSchoolDMG(SpellEffectIndex effect_idx)
                     {
                         damage += uint32(unitTarget->GetMaxPower(POWER_MANA) / 2);
                         damage = std::min(damage, 15000);
+                        break;
+                    }
+                    // Defile (Lich King)
+                    case 72754:
+                    case 73708:
+                    case 73709:
+                    case 73710:
+                    {
+                        damage = damage * m_caster->GetObjectScale();
+
+                        if (!unitTarget->GetDummyAura(m_spellInfo->Id))
+                            m_caster->CastSpell(m_caster, 72756, true);
+
                         break;
                     }
                 }
