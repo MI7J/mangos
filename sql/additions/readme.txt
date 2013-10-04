@@ -107,3 +107,4 @@ change log [custom patches]:
     cp 104 - Remove aura 72293 if not in 631 map.
     cp 105 - Fixed spell 72350 (from Wowka321)
     cp 106 - Lich King spells correct (based on Wowka321 commits)
+    cp 107 - Fixed a bug with resurrection spells used by spirit healers at BG
