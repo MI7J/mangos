@@ -97,3 +97,4 @@ change log [custom patches]:
     cp 94 - Fix crush in ThreatManager (from Wowka321)
     cp 95 - ACHIEVEMENT_FLAG_HIDDEN implement (from Wowka321)
     cp 96 - Removed wrong flag used in dbc for spell 27827. Patch provided by Insider
+    cp 97 - Fixed spell 31850 and ranks. Patch provided by n0n4m3
