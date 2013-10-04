@@ -109,3 +109,4 @@ change log [custom patches]:
     cp 106 - Lich King spells correct (based on Wowka321 commits)
     cp 107 - Fixed a bug with resurrection spells used by spirit healers at BG
     cp 108 - Initialize variables (by Wall)
+    cp 109 - Fixed stacking of spells 8921,33745 and ranks. Patch provided by Tasssadar
