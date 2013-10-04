@@ -2380,6 +2380,13 @@ void Aura::HandleAuraDummy(bool apply, bool Real)
                     case 72286:                             // Invincible
                         Spell::SelectMountByAreaAndSkill(target, GetSpellProto(), 72281, 72282, 72283, 72284, 0);
                         return;
+                    case 72350:                             // Fury of Frostmourne
+                        if (GetEffIndex() == EFFECT_INDEX_0)
+                        {
+                            if (Unit* caster = GetCaster())
+                                caster->CastSpell(caster, 72351, true);
+                        }
+                        return;
                     case 74856:                             // Blazing Hippogryph
                         Spell::SelectMountByAreaAndSkill(target, GetSpellProto(), 0, 0, 74854, 74855, 0);
                         return;

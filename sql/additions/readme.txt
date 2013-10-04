@@ -105,3 +105,4 @@ change log [custom patches]:
     cp 102 - Really stop moving on fear/confused remove. Patch provided by Tasssadar
     cp 103 - Implement PROC_FLAG_ON_DEATH. This allow to proc some spells at caster's death
     cp 104 - Remove aura 72293 if not in 631 map.
+    cp 105 - Fix spell 72350 (from Wowka321 )

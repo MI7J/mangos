@@ -2129,6 +2129,11 @@ bool SpellMgr::IsNoStackSpellDueToSpell(uint32 spellId_1, uint32 spellId_2) cons
                             (spellInfo_2->Id == 39993 && spellInfo_1->Id == 40041))
                         return false;
 
+                    // Fury of Frostmourne
+                    if ((spellInfo_1->SpellIconID == 2702 && spellInfo_2->SpellIconID == 2702) ||
+                            (spellInfo_2->SpellIconID == 2702 && spellInfo_1->SpellIconID == 2702))
+                        return false;
+
                     break;
                 }
                 case SPELLFAMILY_MAGE:
