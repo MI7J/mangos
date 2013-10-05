@@ -111,3 +111,5 @@ change log [custom patches]:
     cp 108 - Initialize variables (by Wall)
     cp 109 - Fixed stacking of spells 8921, 33745 and ranks. Patch provided by Tasssadar
     cp 110 - More addition to DK Ghoul, and restore work many of spells
+    cp 111 - Mirror Image spell small addition
+    cp 112 - Implemented old (tbc 1.x.x) PVP title system
