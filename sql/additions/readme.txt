@@ -113,3 +113,4 @@ change log [custom patches]:
     cp 110 - More addition to DK Ghoul, and restore work many of spells
     cp 111 - Mirror Image spell small addition
     cp 112 - Implemented old (tbc 1.x.x) PVP title system
+    cp 113 - Set mover based on client response. Patch provided by zergtmn, correct by rsa
