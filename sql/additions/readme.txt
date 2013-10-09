@@ -119,3 +119,4 @@ change log [custom patches]:
     cp 116 - DK ghoul fixed. part 2
     cp 117 - Better resilience handling vs critical hits. Patch provided by reeshack
     cp 118 - Fix spell 69076 (from Wowka321 with rsa changes).
+    cp 119 - Cast spells only in 631 map (from Wowka321).
