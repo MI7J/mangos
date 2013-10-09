@@ -117,3 +117,4 @@ change log [custom patches]:
     cp 114 - Fix: apply aura 74411 at PvP maps. Patch provided by przemratajczak
     cp 115 - Fix: interrupt non melee spells at logout. Patch provided by zergtmn
     cp 116 - DK ghoul fixed. part 2
+    cp 117 - Better resilience handling vs critical hits. Patch provided by reeshack
