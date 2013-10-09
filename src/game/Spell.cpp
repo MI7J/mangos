@@ -663,8 +663,10 @@ void Spell::FillTargetMap()
                         case TARGET_AREAEFFECT_CUSTOM:
                             // triggered spells get dest point from default target set, ignore it
                             if (!(m_targets.m_targetMask & TARGET_FLAG_DEST_LOCATION) || m_IsTriggeredSpell)
+                            {
                                 if (WorldObject* castObject = GetCastingObject())
                                     m_targets.setDestination(castObject->GetPositionX(), castObject->GetPositionY(), castObject->GetPositionZ());
+                            }
                             SetTargetMap(SpellEffectIndex(i), m_spellInfo->EffectImplicitTargetB[i], tmpUnitLists[i /*==effToIndex[i]*/]);
                             break;
                             // most A/B target pairs is self->negative and not expect adding caster to target list
@@ -3874,10 +3876,10 @@ void Spell::SendCastResult(Player* caster, SpellEntry const* spellInfo, uint8 ca
             break;
         case SPELL_FAILED_REAGENTS:
             // normally client checks reagents, just some script effects here
-            if (spellInfo->Id == 46584)                      // Raise Dead
+            if (spellInfo->Id == 46584)                     // Raise Dead
                 data << uint32(37201);                      // Corpse Dust
             else
-                data << uint32(0);                              // item id
+                data << uint32(0);                          // item id
             break;
         case SPELL_FAILED_NEED_MORE_ITEMS:
             data << uint32(0);                              // item id
