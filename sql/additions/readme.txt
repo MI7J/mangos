@@ -118,3 +118,4 @@ change log [custom patches]:
     cp 115 - Fix: interrupt non melee spells at logout. Patch provided by zergtmn
     cp 116 - DK ghoul fixed. part 2
     cp 117 - Better resilience handling vs critical hits. Patch provided by reeshack
+    cp 118 - Fix spell 69076 (from Wowka321 with rsa changes).

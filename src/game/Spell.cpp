@@ -7912,6 +7912,12 @@ void Spell::GetSpellRangeAndRadius(SpellEffectIndex effIndex, float& radius, uin
                 case 63482:                                 // Lightning Whirl (h) (Ulduar, Stormcaller Brundir)
                     unMaxTargets = urand(3, 6);
                     break;
+                case 69075:                                 // Bone Storm
+                case 70834:                                 // Bone Storm
+                case 70835:                                 // Bone Storm
+                case 70836:                                 // Bone Storm
+                    radius = ATTACK_DISTANCE + 1;
+                    break;
                 case 72350:                                 // Fury of Frostmourne
                 case 72351:                                 // Fury of Frostmourne 
                     radius = 300;
