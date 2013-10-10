@@ -5161,6 +5161,8 @@ void Spell::EffectSummonType(SpellEffectIndex eff_idx)
                     // 647: 52893, Anti-Magic Zone (npc used)
                     if (prop_id == 121 || prop_id == 647)
                         summonResult = DoSummonTotem(eff_idx);
+                    else if (prop_id == 1021)
+                        summonResult = DoSummonGuardian(summonPositions, summon_prop, eff_idx, level);
                     else
                         summonResult = DoSummonWild(summonPositions, summon_prop, eff_idx, level);
                     break;
