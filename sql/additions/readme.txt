@@ -122,3 +122,4 @@ change log [custom patches]:
     cp 119 - Cast spells only in 631 map (from Wowka321).
     cp 120 - Small addition to mirror image & DK ghoul pet.
     cp 121 - Security level based GM visibility ierarchy by rsa
+    cp 122 - Fix spell 71772 (from Wowka321)

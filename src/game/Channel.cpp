@@ -454,7 +454,7 @@ void Channel::List(Player* player)
             // MODERATOR, GAME MASTER, ADMINISTRATOR can see all
             if (plr && (player->GetSession()->GetSecurity() > SEC_PLAYER || plr->GetSession()->GetSecurity() <= gmLevelInWhoList) &&
                (plr->GetSession()->GetSecurity() <= player->GetSession()->GetSecurity() ||
-                plr->IsVisibleGloballyFor(player))
+                plr->IsVisibleGloballyFor(player)))
             {
                 data << ObjectGuid(i->first);
                 data << uint8(i->second.flags);             // flags seems to be changed...
