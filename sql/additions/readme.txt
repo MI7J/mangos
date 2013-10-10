@@ -124,3 +124,4 @@ change log [custom patches]:
     cp 121 - Security level based GM visibility ierarchy by rsa
     cp 122 - Fix spell 71772 (from Wowka321)
     cp 123 - Implemented Snakes trap (from Wowka321) & small addition to prev. commit
+    cp 124 - Some very old fixes.
