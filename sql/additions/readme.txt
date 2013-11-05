@@ -125,3 +125,4 @@ change log [custom patches]:
     cp 122 - Fix spell 71772 (from Wowka321)
     cp 123 - Implemented Snakes trap (from Wowka321) & small addition to prev. commit
     cp 124 - Some very old fixes.
+    cp 125 - Marrowgar Bone storm correct 
