@@ -126,3 +126,4 @@ change log [custom patches]:
     cp 123 - Implemented Snakes trap (from Wowka321) & small addition to prev. commit
     cp 124 - Some very old fixes.
     cp 125 - Marrowgar Bone storm correct 
+    cp 126 - fix action bars after spec switch 
