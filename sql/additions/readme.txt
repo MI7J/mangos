@@ -127,4 +127,5 @@ change log [custom patches]:
     cp 124 - Some very old fixes.
     cp 125 - Marrowgar Bone storm correct 
     cp 126 - fix action bars after spec switch 
-    cp 127 - Fix Icecrown healers trinket target selection 
+    cp 127 - Fix Icecrown healers trinket target selection
+    cp 128 - Spell proc collection from Selector added
