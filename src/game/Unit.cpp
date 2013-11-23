@@ -6138,6 +6138,15 @@ Unit* Unit::GetCharmer() const
     return NULL;
 }
 
+Unit* Unit::GetCreator() const
+{
+    ObjectGuid creatorid = GetCreatorGuid();
+    if (!creatorid.IsEmpty())
+        return ObjectAccessor::GetUnit(*this, creatorid);
+
+    return NULL;
+}
+
 bool Unit::IsCharmerOrOwnerPlayerOrPlayerItself() const
 {
     if (GetTypeId() == TYPEID_PLAYER)
@@ -10061,6 +10070,16 @@ void CharmInfo::BuildActionBar(WorldPacket* data)
 
 void CharmInfo::SetSpellAutocast(uint32 spell_id, bool state)
 {
+    // chained pets
+    if (m_unit->GetTypeId() == TYPEID_UNIT && ((Creature*)m_unit)->isPet())
+    {
+        if (Pet* chainedPet = m_unit->GetPet())
+        {
+            if (((Creature*)m_unit)->GetEntry() == chainedPet->GetEntry() && chainedPet->GetCharmInfo())
+                chainedPet->GetCharmInfo()->SetSpellAutocast(spell_id, state);
+        }
+    }
+
     for (int i = 0; i < MAX_UNIT_ACTION_BAR_INDEX; ++i)
     {
         if (spell_id == PetActionBar[i].GetAction() && PetActionBar[i].IsActionBarForSpell())
@@ -10068,6 +10087,340 @@ void CharmInfo::SetSpellAutocast(uint32 spell_id, bool state)
             PetActionBar[i].SetType(state ? ACT_ENABLED : ACT_DISABLED);
             break;
         }
+    }
+}
+
+void CharmInfo::SetActionBar(uint8 index, uint32 spellOrAction, ActiveStates type)
+{
+    // chained pets
+    if (m_unit->GetTypeId() == TYPEID_UNIT && ((Creature*)m_unit)->isPet())
+    {
+        if (Pet* chainedPet = m_unit->GetPet())
+        {
+            if (((Creature*)m_unit)->GetEntry() == chainedPet->GetEntry() && chainedPet->GetCharmInfo())
+                chainedPet->GetCharmInfo()->SetActionBar(index, spellOrAction, type);
+        }
+    }
+
+    PetActionBar[index].SetActionAndType(spellOrAction,type);
+}
+
+void Unit::DoPetAction(Player* owner, uint8 flag, uint32 spellid, ObjectGuid petGuid, ObjectGuid targetGuid)
+{
+    if (!IsInWorld() || (GetTypeId() == TYPEID_UNIT && ((Creature*)this)->IsPet() &&  !GetCharmInfo()))
+        return;
+
+    if (!isAlive())
+    {
+        SendPetActionFeedback(FEEDBACK_PET_DEAD);
+        return;
+    }
+
+    // chained
+    if (GetTypeId() == TYPEID_UNIT && ((Creature*)this)->isPet())
+    {
+        if (Pet* chainedPet = GetPet())
+        {
+            if (((Creature*)this)->GetEntry() == chainedPet->GetEntry())
+                chainedPet->DoPetAction(owner, flag, spellid, petGuid, targetGuid);
+        }
+    }
+
+    switch(flag)
+    {
+        case ACT_COMMAND:                                   //0x07
+        {
+            // Maybe exists some flag that disable it at client side
+            if (petGuid.IsVehicle())
+                return;
+
+            switch(spellid)
+            {
+                case COMMAND_STAY:                          // flat = 1792  // STAY
+                {
+                    if (IsNonMeleeSpellCasted(false))
+                        InterruptNonMeleeSpells(false);
+                    AttackStop();
+                    StopMoving();
+                    GetMotionMaster()->Clear(false);
+                    GetMotionMaster()->MoveIdle();
+                    GetCharmInfo()->SetCommandState(COMMAND_STAY);
+                    break;
+                }
+                case COMMAND_FOLLOW:                        // spellid = 1792  // FOLLOW
+                {
+                    if (IsNonMeleeSpellCasted(false))
+                        InterruptNonMeleeSpells(false);
+                    AttackStop();
+                    GetMotionMaster()->Clear(true);
+                    GetMotionMaster()->MoveFollow(owner, PET_FOLLOW_DIST, ((Creature*)this)->isPet() ? ((Pet*)this)->GetPetFollowAngle() : PET_DEFAULT_FOLLOW_ANGLE);
+                    GetCharmInfo()->SetCommandState(COMMAND_FOLLOW);
+                    break;
+                }
+                case COMMAND_ATTACK:                        // spellid = 1792  // ATTACK
+                {
+                    Unit* TargetUnit = owner->GetMap()->GetUnit(targetGuid);
+                    if (!TargetUnit)
+                        return;
+
+                    // not let attack friendly units.
+                    if (owner->IsFriendlyTo(TargetUnit))
+                        return;
+                    // Not let attack through obstructions
+                    if (!IsWithinLOSInMap(TargetUnit) && !owner->IsWithinLOSInMap(TargetUnit))
+                        return;
+
+                    // This is true if pet has no target or has target but targets differs.
+                    if (getVictim() != TargetUnit)
+                    {
+                        if (getVictim())
+                        {
+                            if (IsNonMeleeSpellCasted(false))
+                                InterruptNonMeleeSpells(false);
+                            AttackStop();
+                        }
+
+                        if (hasUnitState(UNIT_STAT_CONTROLLED))
+                        {
+                            Attack(TargetUnit, true);
+                            SendPetAIReaction();
+                        }
+                        else
+                        {
+                            GetMotionMaster()->Clear();
+
+                            if (((Creature*)this)->AI())
+                                ((Creature*)this)->AI()->AttackStart(TargetUnit);
+
+                            // 10% chance to play special pet attack talk, else growl
+                            if (((Creature*)this)->IsPet() && ((Pet*)this)->getPetType() == SUMMON_PET && roll_chance_i(10))
+                                SendPetTalk((uint32)PET_TALK_ATTACK);
+                            else
+                            {
+                                // 90% chance for pet and 100% chance for charmed creature
+                                SendPetAIReaction();
+                            }
+                        }
+                    }
+                    break;
+                }
+                case COMMAND_ABANDON:                       // abandon (hunter pet) or dismiss (summoned pet)
+                {
+                    if (IsNonMeleeSpellCasted(false))
+                        InterruptNonMeleeSpells(false);
+                    AttackStop();
+                    StopMoving();
+                    GetMotionMaster()->Clear(true);
+
+                    if (((Creature*)this)->IsPet())
+                    {
+                        Pet* p = (Pet*)this;
+                        if (p->getPetType() == HUNTER_PET)
+                            p->Unsummon(PET_SAVE_AS_DELETED, owner);
+                        else
+                            // dismissing a summoned pet is like killing them (this prevents returning a soulshard...)
+                            p->SetDeathState(CORPSE);
+                    }
+                    else                                    // charmed
+                        owner->Uncharm();
+                    break;
+                }
+                default:
+                    sLog.outError("WORLD: unknown PET command Action %i and spellid %i.", uint32(flag), spellid);
+            }
+            break;
+        }
+        case ACT_REACTION:                                  // 0x6
+        {
+            switch (spellid)
+            {
+                case REACT_PASSIVE:                         // passive
+                case REACT_DEFENSIVE:                       // recovery
+                case REACT_AGGRESSIVE:                      // activete
+                    GetCharmInfo()->SetReactState(ReactStates(spellid));
+                    break;
+            }
+            break;
+        }
+        case ACT_DISABLED:                                  // 0x81    spell (disabled), ignore
+        case ACT_CASTABLE:                                  // 0x80    spell (disabled), toggle state
+        case ACT_PASSIVE:                                   // 0x01
+        case ACT_ENABLED:                                   // 0xC1    spell
+        case ACT_ACTIVE:                                    // 0xC0    spell
+        {
+            Unit* unit_target = NULL;
+            if (!targetGuid.IsEmpty())
+                unit_target = owner->GetMap()->GetUnit(targetGuid);
+
+            if (IsNonMeleeSpellCasted(false))
+                InterruptNonMeleeSpells(false);
+
+            // do not cast unknown spells
+            SpellEntry const* spellInfo = sSpellStore.LookupEntry(spellid);
+            if (!spellInfo)
+            {
+                sLog.outError("WORLD: unknown PET spell id %i", spellid);
+                return;
+            }
+
+            if (GetCharmInfo() && GetCharmInfo()->GetGlobalCooldownMgr().HasGlobalCooldown(spellInfo))
+                return;
+
+            for (int i = 0; i < MAX_EFFECT_INDEX; ++i)
+            {
+                if (spellInfo->EffectImplicitTargetA[i] == TARGET_ALL_ENEMY_IN_AREA || spellInfo->EffectImplicitTargetA[i] == TARGET_ALL_ENEMY_IN_AREA_INSTANT || spellInfo->EffectImplicitTargetA[i] == TARGET_ALL_ENEMY_IN_AREA_CHANNELED)
+                    return;
+            }
+
+            // do not cast not learned spells
+            if (!HasSpell(spellid) || IsPassiveSpell(spellInfo))
+                return;
+
+            clearUnitState(UNIT_STAT_MOVING);
+
+            Spell* spell = new Spell(this, spellInfo, false);
+
+            SpellCastResult result = spell->CheckPetCast(unit_target);
+
+            // auto turn to target unless possessed
+            if (result == SPELL_FAILED_UNIT_NOT_INFRONT && !HasAuraType(SPELL_AURA_MOD_POSSESS))
+            {
+                if (unit_target)
+                {
+                    SetInFront(unit_target);
+                    if (unit_target->GetTypeId() == TYPEID_PLAYER)
+                        SendCreateUpdateToPlayer((Player*)unit_target);
+                }
+                else if (Unit* unit_target2 = spell->m_targets.getUnitTarget())
+                {
+                    SetInFront(unit_target2);
+                    if (unit_target2->GetTypeId() == TYPEID_PLAYER)
+                        SendCreateUpdateToPlayer((Player*)unit_target2);
+                }
+                if (Unit* powner = GetCharmerOrOwner())
+                {
+                    if (powner->GetTypeId() == TYPEID_PLAYER)
+                        SendCreateUpdateToPlayer((Player*)powner);
+                }
+                result = SPELL_CAST_OK;
+            }
+
+            if (result == SPELL_CAST_OK)
+            {
+                ((Creature*)this)->AddCreatureSpellCooldown(spellid);
+
+                unit_target = spell->m_targets.getUnitTarget();
+
+                // 10% chance to play special pet attack talk, else growl
+                // actually this only seems to happen on special spells, fire shield for imp, torment for voidwalker, but it's stupid to check every spell
+                if (((Creature*)this)->IsPet() && (((Pet*)this)->getPetType() == SUMMON_PET) && (this != unit_target) && (urand(0, 100) < 10))
+                    SendPetTalk((uint32)PET_TALK_SPECIAL_SPELL);
+                else
+                {
+                    SendPetAIReaction();
+                }
+
+                if (unit_target && !GetPlayer()->IsFriendlyTo(unit_target) && !HasAuraType(SPELL_AURA_MOD_POSSESS))
+                {
+                    // This is true if pet has no target or has target but targets differs.
+                    if (getVictim() != unit_target)
+                    {
+                        if (getVictim())
+                            AttackStop();
+                        GetMotionMaster()->Clear();
+                        if (((Creature*)this)->AI())
+                            ((Creature*)this)->AI()->AttackStart(unit_target);
+                    }
+                }
+
+                spell->prepare(&(spell->m_targets));
+            }
+            else
+            {
+                if (HasAuraType(SPELL_AURA_MOD_POSSESS))
+                    Spell::SendCastResult(GetPlayer(), spellInfo, 0, result);
+                else
+                {
+                    Unit* owner = GetCharmerOrOwner();
+                    if (owner && owner->GetTypeId() == TYPEID_PLAYER)
+                        Spell::SendCastResult((Player*)owner, spellInfo, 0, result, true);
+                }
+
+                if (!((Creature*)this)->HasSpellCooldown(spellid))
+                    GetPlayer()->SendClearCooldown(spellid, this);
+
+                spell->finish(false);
+                delete spell;
+            }
+            break;
+        }
+        default:
+            sLog.outError("WORLD: unknown PET flag Action %i and spellid %i.", uint32(flag), spellid);
+            break;
+    }
+}
+
+void Unit::DoPetCastSpell(Player* owner, uint8 cast_count, SpellCastTargets targets, SpellEntry const* spellInfo)
+{
+    if (!IsInWorld())
+        return;
+
+    if (!isAlive())
+        return;
+
+    // chained
+    if (GetTypeId() == TYPEID_UNIT && ((Creature*)this)->isPet())
+    {
+        if (Pet* chainedPet = GetPet())
+        {
+            if (((Creature*)this)->GetEntry() == chainedPet->GetEntry())
+                chainedPet->DoPetCastSpell(owner, cast_count, targets, spellInfo);
+        }
+    }
+
+    Creature* pet = dynamic_cast<Creature*>(this);
+
+    clearUnitState(UNIT_STAT_MOVING);
+
+    Spell* spell = new Spell(pet, spellInfo, triggeredByAura ? true : false, pet->GetObjectGuid(), triggeredByAura ? triggeredByAura->GetSpellProto() : NULL);
+    spell->m_cast_count = cast_count;                       // probably pending spell cast
+    spell->m_targets = targets;
+
+    SpellCastResult result = triggeredByAura ? SPELL_CAST_OK : spell->CheckPetCast(NULL);
+    if (result == SPELL_CAST_OK)
+    {
+        pet->AddCreatureSpellCooldown(spellid);
+        if (pet->IsPet())
+        {
+            // 10% chance to play special pet attack talk, else growl
+            // actually this only seems to happen on special spells, fire shield for imp, torment for voidwalker, but it's stupid to check every spell
+            if (((Pet*)pet)->getPetType() == SUMMON_PET && (urand(0, 100) < 10))
+                pet->SendPetTalk((uint32)PET_TALK_SPECIAL_SPELL);
+            else
+                pet->SendPetAIReaction();
+        }
+
+        spell->prepare(&(spell->m_targets), triggeredByAura);
+    }
+    else
+    {
+        Unit* owner = pet->GetCharmerOrOwner();
+        if (owner && owner->GetTypeId() == TYPEID_PLAYER && !triggeredByAura)
+            Spell::SendCastResult((Player*)owner, spellInfo, 0, result, true);
+
+        if (!pet->HasSpellCooldown(spellid) && !triggeredByAura)
+            GetPlayer()->SendClearCooldown(spellid, pet);
+
+        spell->finish(false);
+        delete spell;
+    }
+
+    // do not cast unknown spells
+    SpellEntry const *spellInfo = sSpellStore.LookupEntry(spellId);
+    if(!spellInfo)
+    {
+        sLog.outError("WORLD: unknown PET spell id %i", spellInfo->Id);
+        return;
     }
 }
 

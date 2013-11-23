@@ -4393,7 +4393,7 @@ void Aura::HandleModPossessPet(bool apply, bool Real)
         }
         else
         {
-            pet->GetMotionMaster()->MoveFollow(caster, PET_FOLLOW_DIST, PET_FOLLOW_ANGLE);
+            pet->GetMotionMaster()->MoveFollow(caster, PET_FOLLOW_DIST, PET_DEFAULT_FOLLOW_ANGLE);
         }
     }
 }

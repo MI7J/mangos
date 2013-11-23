@@ -941,6 +941,14 @@ bool Pet::UpdateStats(Stats stat)
     float value  = GetTotalStatValue(stat);
 
     Unit* owner = GetOwner();
+
+    // chained, use original owner instead
+    if (owner && owner->GetTypeId() == TYPEID_UNIT && ((Creature*)owner)->GetEntry() == GetEntry())
+    {
+        if (Unit* creator = GetCreator())
+            owner = creator;
+    }
+
     if (stat == STAT_STAMINA)
     {
         if(owner && owner->GetTypeId() == TYPEID_PLAYER  && owner->getClass() == CLASS_WARLOCK)
@@ -1000,6 +1008,14 @@ void Pet::UpdateResistances(uint32 school)
         float value  = GetTotalAuraModValue(UnitMods(UNIT_MOD_RESISTANCE_START + school));
 
         Unit* owner = GetOwner();
+
+        // chained, use original owner instead
+        if (owner && owner->GetTypeId() == TYPEID_UNIT && ((Creature*)owner)->GetEntry() == GetEntry())
+        {
+            if (Unit* creator = GetCreator())
+                owner = creator;
+        }
+
         // hunter and warlock pets gain 40% of owner's resistance
         if (owner && (getPetType() == HUNTER_PET || (getPetType() == SUMMON_PET && owner->getClass() == CLASS_WARLOCK)))
             value += float(owner->GetResistance(SpellSchools(school))) * 0.4f;
@@ -1017,6 +1033,13 @@ void Pet::UpdateArmor()
     UnitMods unitMod = UNIT_MOD_ARMOR;
 
     Unit* owner = GetOwner();
+    // chained, use original owner instead
+    if (owner && owner->GetTypeId() == TYPEID_UNIT && ((Creature*)owner)->GetEntry() == GetEntry())
+    {
+        if (Unit* creator = GetCreator())
+            owner = creator;
+    }
+
     // hunter and warlock pets gain 35% of owner's armor value
     if (owner && (getPetType() == HUNTER_PET || (getPetType() == SUMMON_PET && owner->getClass() == CLASS_WARLOCK)))
         bonus_armor = 0.35f * float(owner->GetArmor());
@@ -1096,6 +1119,13 @@ void Pet::UpdateAttackPowerAndDamage(bool ranged)
         val = 2 * GetStat(STAT_STRENGTH) - 20.0f;
 
     Unit* owner = GetOwner();
+    // chained, use original owner instead
+    if (owner && owner->GetTypeId() == TYPEID_UNIT && ((Creature*)owner)->GetEntry() == GetEntry())
+    {
+        if (Unit* creator = GetCreator())
+            owner = creator;
+    }
+
     if (owner && owner->GetTypeId() == TYPEID_PLAYER)
     {
         if (getPetType() == HUNTER_PET)                     // hunter pets benefit from owner's attack power
