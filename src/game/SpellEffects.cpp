@@ -10864,18 +10864,18 @@ void Spell::EffectKnockBackFromPosition(SpellEffectIndex eff_idx)
 }
 
 // Used only for snake trap
-void Spell::DoSummonSnakes(SpellEffectIndex eff_idx)
+bool Spell::DoSummonSnakes(SpellEffectIndex eff_idx)
 {
     uint32 creature_entry = m_spellInfo->EffectMiscValue[eff_idx];
     if (!creature_entry || !m_caster)
-        return;
+        return false;
 
     // Find trap GO and get it coordinates to spawn snakes
     GameObject* pTrap = m_caster->GetMap()->GetGameObject(m_originalCasterGUID);
     if (!pTrap)
     {
         sLog.outError("Spell::EffectSummonSnakes failed to find trap for caster %s ", m_caster->GetObjectGuid().GetString().c_str());
-        return;
+        return false;
     }
 
     float position_x, position_y, position_z;
@@ -10914,4 +10914,5 @@ void Spell::DoSummonSnakes(SpellEffectIndex eff_idx)
         pSummon->SetLevel(m_caster->getLevel());
         pSummon->SetMaxHealth(m_caster->getLevel() + urand(20, 30));
     }
+    return true;
 }
